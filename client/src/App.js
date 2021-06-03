@@ -1,12 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './App.css'
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import Login from "./Auth/Login/Login";
 
-function App() {
-  return (
-    <div className="App">
-      Replace
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <Router>
+            <Route path='/' exact component={Login} />
+        </Router>
+    );
+};
 
 export default App;
