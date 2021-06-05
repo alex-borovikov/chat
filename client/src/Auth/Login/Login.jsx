@@ -1,5 +1,6 @@
-import React from 'react';
-import {Box, Button, Divider, makeStyles} from "@material-ui/core";
+import React, {useState} from 'react';
+import {Box, Button, Checkbox} from "@material-ui/core";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import Textfield from "../../TextField/Textfield";
 import clsx from "clsx";
@@ -7,12 +8,19 @@ import useStyles from "./Login.style";
 
 const Login = () => {
     const classes = useStyles();
+    const [checked, setChecked] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [type, setType] = useState('password');
+
+    const handleChange = (event) => {
+        setChecked(event.target.checked);
+        type === 'password' ? setType('text') : setType('password')
+    };
     return (
         <div className={classes.root}>
             <Box display={'flex'} className={classes.paper}>
-                <Box className={clsx(classes.element, classes.left__section)}>
-
-                </Box>
+                <Box className={clsx(classes.element, classes.left__section)}></Box>
                 <Box className={clsx(classes.element, classes.right__section)}>
                     <div className={classes.form}>
                         <div className={classes.form__header}>
@@ -24,33 +32,58 @@ const Login = () => {
                                     <label htmlFor="emailAdress">Email adress</label>
                                 </div>
                                 <div className='form__section-item '>
-                                    <Textfield placeholder='Enter your email' type='email' id='emailAdress' className={classes.textfield}/>
+                                    <Textfield
+                                        placeholder='Enter your email'
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
+                                        type='email'
+                                        id='emailAdress'
+                                        className={classes.textfield}
+                                        autoComplete={'on'}
+                                        tabIndex='1'
+                                    />
                                 </div>
                             </div>
                             <div className={classes.form__section}>
                                 <div className='form__section-item form__section-label'>
-                                    <label htmlFor="password">Email adress</label>
+                                    <label htmlFor="password">Password</label>
                                 </div>
                                 <div className='form__section-item '>
-                                    <Textfield placeholder='Enter password' type='password' id='password' className={classes.textfield}/>
+                                    <Textfield
+                                        placeholder='Enter password'
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                        type={type}
+                                        id='password'
+                                        className={classes.textfield}
+                                        tabIndex='2'
+                                    />
                                 </div>
                             </div>
-                            <div className={classes.form__section}>
-                                <Textfield type='checkbox' id='checkbox' />
+                            <div className={clsx(classes.form__section, classes.form__section_showPassword)}>
+                                <Checkbox
+                                    checked={checked}
+                                    onChange={handleChange}
+                                    id='checkbox'
+                                />
                                 <label htmlFor='checkbox' className='form__section-label__text'>Show password</label>
                             </div>
                             <div className={clsx(classes.form__section, classes.form__sectionMargin)}>
                                 <Button variant="contained" className='form__section-signin'>
-                                    Sign up
+                                    <span>Sign up</span>
+                                    <ArrowForwardIcon className={classes.arrow} />
                                 </Button>
                             </div>
                             <div className={clsx(classes.form__section, classes.form__section_parent)}>
-                                <span className={classes.form__section_devider} />
+                                <span className={classes.form__section_divider} />
                                 <span>or</span>
-                                <span className={classes.form__section_devider} />
+                                <span className={classes.form__section_divider} />
                             </div>
-                            <div className={classes.form__section}>
-                                <button>Continue with google</button>
+                            <div className={clsx(classes.form__section, classes.form__btn)}>
+                                <Button variant="outlined">
+                                    <img alt='google_logo.png' src="https://img.icons8.com/office/16/000000/google-logo.png"/>
+                                    <span>Continue with google</span>
+                                </Button>
                             </div>
                         </form>
                     </div>

@@ -1,11 +1,13 @@
 import {makeStyles} from "@material-ui/core";
-import back from "../../assets/images/123.jpg";
+import back from "../../assets/images/fon.jpg";
 
 const useStyles = makeStyles(theme => ({
     root: {
         background: '#86F0D3',
-        padding: '100px 0',
-        height: '100vh'
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
     },
     paper: {
         width: '90vw',
@@ -27,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     right__section: {
         display: 'flex',
         justifyContent: 'center',
-        // padding: '10vw 0'
+        padding: '5vw 0'
     } ,
     textfield:{
         outline: 'none',
@@ -67,24 +69,54 @@ const useStyles = makeStyles(theme => ({
             color: '#fff',
             background: 'linear-gradient(270deg, rgb(31, 199, 152), rgb(22, 158, 122))'
         },
+        '& .PrivateSwitchBase-root-20': {
+            padding: '0'
+        }
     },
     form__section_parent: {
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         alignItems: 'center',
         alignSelf: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        marginBottom: '0',
+        '& > span': {
+            color: '#e3e3e3'
+        }
 
     },
     form__sectionMargin: {
-        margin: '25px 0 40px 0'
+        margin: '25px 0 40px 0',
+        '& button.form__section-signin > span > span:first-child': {
+            marginRight: '10px'
+        }
     },
-    form__section_devider: {
+    form__section_divider: {
         display: 'inline-block',
         width: '70px',
         height: '1px',
         background: '#e3e3e3',
 
+    },
+    form__btn: {
+        marginTop: '40px',
+        '& button': {
+            width: '100%',
+            background: '#fff',
+            '& span': {
+                transform: 'translateY(1px)',
+            },
+            '& img': {
+                marginRight: '10px'
+            },
+        },
+    },
+    arrow: {
+        fontSize: '1.1em'
+    },
+    form__section_showPassword: {
+        display: 'flex',
+        alignItems: 'center'
     }
 }))
 
