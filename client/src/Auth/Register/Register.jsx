@@ -14,6 +14,8 @@ const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
+
+
     return (
         <div className={classes_login.root}>
             <Paper className={clsx(classes_login.paper, classes.paper)}>
@@ -43,7 +45,7 @@ const Register = () => {
                         </Button>
                     </div>
                     <div className={clsx(classes_login.form__section, classes_login.form__section_parent, classes_login.nodisplay)}>
-                        <span className={classes_login.form__section_divider} />
+                        <span className={clsx(classes_login.form__section_divider, classes.dividerMargin)} />
                         <span>or</span>
                         <span className={classes_login.form__section_divider} />
                     </div>

@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     root: {
-        background: '#86F0D3'
+        background: '#86F0D3',
     },
     paper: {
         width: '50vw',
@@ -23,6 +23,12 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         '& div': {
             width: '100%'
+        },
+        '& input:focus ~ fieldset': {
+            borderColor: '#86F0D3 !important'
+        },
+        '& .MuiFormLabel-root': {
+            color: '#CCDBDA !important'
         }
     },
     button: {
