@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
         },
         '& .form__section-label__text':{
             fontSize: '.95em',
-            marginLeft: '5px'
+            marginLeft: '-5px'
         },
         '& .form__section-signin':{
             width: '100%',
@@ -90,7 +90,7 @@ const useStyles = makeStyles(theme => ({
     form__sectionMargin: {
         margin: '25px 0 40px 0',
         '& button.form__section-signin > span > span:first-child': {
-            marginRight: '10px'
+            marginRight: '5px'
         }
     },
     form__section_divider: {
@@ -173,6 +173,52 @@ const useStyles = makeStyles(theme => ({
         fontSize: '1.4em',
         '& p > a:hover': {
             textDecoration: 'underline'
+        }
+    },
+    form__signup: {
+        '& > a': {
+            color: 'black',
+            fontSize: '1.2em'
+        },
+        '& > a > button': {
+            width: '100%',
+            background: '#fff'
+        },
+        display: 'none'
+    },
+    nodisplay: {
+        display: 'none'
+    },
+    [theme.breakpoints.up('xl')]: {
+        textfield: {
+            width: '400px'
+        }
+    },
+    [theme.breakpoints.down('md')]: {
+        paper: {
+            width: '80vw'
+        },
+        left__section: {
+            display: 'none'
+        },
+        textfield: {
+            width: '60vw'
+        },
+        form__btn:{
+            marginTop: '10px'
+        },
+        form__sectionMargin: {
+            marginBottom: '10px',
+            marginTop: '0'
+        },
+        form__signup: {
+            display: 'block',
+            textAlign: 'center',
+            marginTop: '7px',
+            fontWeight: 600
+        },
+        nodisplay: {
+            display: 'grid'
         }
     }
 }))

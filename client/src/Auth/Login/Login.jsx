@@ -4,7 +4,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import Textfield from "../../TextField/Textfield";
 import clsx from "clsx";
-import useStyles from "./Login.style";
+import useStyles from "./Login.styles";
 
 const Login = () => {
     const classes = useStyles();
@@ -34,9 +34,9 @@ const Login = () => {
                                 <p>100+ milione people have joined our network</p>
                             </div>
                             <div className={classes.already_account}>
-                                <p>Already have an account?</p>
+                                <p>Dont have an account?</p>
                                 <p>
-                                    <a href="/api/signin">Sign in</a>
+                                    <a href="/api/signup">Sign up</a>
                                 </p>
                             </div>
                         </div>
@@ -105,6 +105,18 @@ const Login = () => {
                                     <img alt='google_logo.png' src="https://img.icons8.com/office/16/000000/google-logo.png"/>
                                     <span>Continue with google</span>
                                 </Button>
+                            </div>
+                            <div className={clsx(classes.form__section, classes.form__section_parent, classes.nodisplay)}>
+                                <span className={clsx(classes.form__section_divider, classes.dividerMargin)} />
+                                <span>or</span>
+                                <span className={classes.form__section_divider} />
+                            </div>
+                            <div className={clsx(classes.form__section, classes.form__signup)}>
+                                <a href="/api/signup">
+                                    <Button variant="contained" >
+                                        <span>Sign up</span>
+                                    </Button>
+                                </a>
                             </div>
                         </form>
                     </div>
