@@ -12,12 +12,6 @@ const Register = () => {
     const classes = useStyles()
     const classes_login = useLoginStyles()
 
-    // const [name, setName] = useState('');
-    // const [surname, setSurname] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
-    // const [confirm, setConfirm] = useState('');
-
     const registerSchema = yup.object().shape({
         name: yup.string().required(),
         surname: yup.string(),
@@ -25,7 +19,6 @@ const Register = () => {
         password: yup.string().min(6, 'Password is too short, min 6 symbols').required('No password provided'),
         confirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').min(6, 'Password is too short, min 6 symbols').required()
     })
-
 
     return (
         <div className={clsx(classes_login.root, classes.root)}>
