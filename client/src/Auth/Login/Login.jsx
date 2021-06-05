@@ -20,7 +20,28 @@ const Login = () => {
     return (
         <div className={classes.root}>
             <Box display={'flex'} className={classes.paper}>
-                <Box className={clsx(classes.element, classes.left__section)}></Box>
+                <Box className={clsx(classes.element, classes.left__section)}>
+                    <div className={classes.greeting}>
+                        <div className={classes.blur__effect}>
+                            <div className={classes.greeting__logo}>
+                                <div>Chat with</div>
+                                <div>Me</div>
+                            </div>
+                            <div className={classes.greeting__separator} />
+                            <div className={classes.greeting__main}>
+                                <p>We are</p>
+                                <p>Invite only right now</p>
+                                <p>100+ milione people have joined our network</p>
+                            </div>
+                            <div className={classes.already_account}>
+                                <p>Already have an account?</p>
+                                <p>
+                                    <a href="/api/signin">Sign in</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </Box>
                 <Box className={clsx(classes.element, classes.right__section)}>
                     <div className={classes.form}>
                         <div className={classes.form__header}>

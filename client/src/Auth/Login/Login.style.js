@@ -24,7 +24,9 @@ const useStyles = makeStyles(theme => ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        borderRadius: '23px'
+        borderRadius: '23px',
+        display: 'grid',
+        placeItems: 'center'
     },
     right__section: {
         display: 'flex',
@@ -117,6 +119,61 @@ const useStyles = makeStyles(theme => ({
     form__section_showPassword: {
         display: 'flex',
         alignItems: 'center'
+    },
+    greeting: {
+        width: '70%',
+        height: '80%',
+    },
+    blur__effect: {
+        height: '100%',
+        width: '100%',
+        borderRadius: '13px',
+        backgroundColor: 'rgba(0,0,0, .25)',
+        backdropFilter: 'blur(12px)',
+        color: '#fff',
+        padding: '30px 23px',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    greeting__logo: {
+        backdropFilter: 'blur(1px)',
+        width: 'fit-content',
+        padding: '5px 10px',
+        textTransform: 'uppercase',
+        letterSpacing: '1px',
+        fontWeight: '600',
+        '& div:nth-child(2)': {
+            textAlign: 'center'
+        },
+        marginBottom: '40px'
+    },
+    greeting__separator: {
+        width: '50px',
+        height: '2px',
+        background: '#10b8be'
+    },
+    greeting__main: {
+        flex: '1 1 auto',
+        marginTop: '40px',
+        '& p': {
+          marginBottom: '8px'
+        },
+        '& p:first-child': {
+            fontSize: '1.2em'
+        },
+        '& p:nth-child(2)': {
+            fontSize: '2em'
+        },
+        '& p:nth-child(3)': {
+            fontSize: '1em'
+        }
+    },
+    already_account: {
+        fontWeight: 600,
+        fontSize: '1.4em',
+        '& p > a:hover': {
+            textDecoration: 'underline'
+        }
     }
 }))
 
