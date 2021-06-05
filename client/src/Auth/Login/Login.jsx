@@ -1,51 +1,9 @@
 import React from 'react';
 import {Box, Button, Divider, makeStyles} from "@material-ui/core";
-import back from '../../assets/images/back.jpg'
-import Textfield from "../../TextField/Textfield";
-import './Login.scss'
-import clsx from "clsx";
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        background: '#86F0D3',
-        padding: '100px 0',
-        height: '100vh'
-    },
-    paper: {
-        width: '90vw',
-        borderRadius: '23px',
-        margin: '0 auto',
-        boxShadow: '1px 2px 27px -9px rgba(0,0,0,0.75)',
-        background: '#fff'
-    },
-    element: {
-        flex: '50%'
-    },
-    left__section:{
-        backgroundImage: `url(${back})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        borderRadius: '23px'
-    },
-    right__section: {
-        display: 'flex',
-        justifyContent: 'center',
-        // padding: '10vw 0'
-    } ,
-    textfield:{
-        outline: 'none',
-        borderRadius: '5px',
-        border: '1px solid #e3e3e3',
-        height: '40px',
-        padding: '5px 10px',
-        letterSpacing: '.5px',
-        width: '300px'
-    },
-    form: {
-        width: 'fit-content',
-    },
-}))
+import Textfield from "../../TextField/Textfield";
+import clsx from "clsx";
+import useStyles from "./Login.style";
 
 const Login = () => {
     const classes = useStyles();
@@ -57,11 +15,11 @@ const Login = () => {
                 </Box>
                 <Box className={clsx(classes.element, classes.right__section)}>
                     <div className={classes.form}>
-                        <div className="form__header">
-                            <h2>Sign up</h2>
+                        <div className={classes.form__header}>
+                            <h2>Sign in</h2>
                         </div>
-                        <form>
-                            <div className="form__section">
+                        <form className={classes.form_control}>
+                            <div className={classes.form__section}>
                                 <div className='form__section-item form__section-label'>
                                     <label htmlFor="emailAdress">Email adress</label>
                                 </div>
@@ -69,7 +27,7 @@ const Login = () => {
                                     <Textfield placeholder='Enter your email' type='email' id='emailAdress' className={classes.textfield}/>
                                 </div>
                             </div>
-                            <div className="form__section">
+                            <div className={classes.form__section}>
                                 <div className='form__section-item form__section-label'>
                                     <label htmlFor="password">Email adress</label>
                                 </div>
@@ -77,21 +35,21 @@ const Login = () => {
                                     <Textfield placeholder='Enter password' type='password' id='password' className={classes.textfield}/>
                                 </div>
                             </div>
-                            <div className="form__section">
+                            <div className={classes.form__section}>
                                 <Textfield type='checkbox' id='checkbox' />
                                 <label htmlFor='checkbox' className='form__section-label__text'>Show password</label>
                             </div>
-                            <div className="form__section">
-                                <Button variant="contained" className='form__section-signup'>
+                            <div className={clsx(classes.form__section, classes.form__sectionMargin)}>
+                                <Button variant="contained" className='form__section-signin'>
                                     Sign up
                                 </Button>
                             </div>
-                            <div className="form__section">
-                                <Divider />
+                            <div className={clsx(classes.form__section, classes.form__section_parent)}>
+                                <span className={classes.form__section_devider} />
                                 <span>or</span>
-                                <Divider />
+                                <span className={classes.form__section_devider} />
                             </div>
-                            <div className="form__section">
+                            <div className={classes.form__section}>
                                 <button>Continue with google</button>
                             </div>
                         </form>
