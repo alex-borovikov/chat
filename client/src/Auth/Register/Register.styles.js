@@ -4,6 +4,7 @@ import {makeStyles} from "@material-ui/core";
 const useStyles = makeStyles(theme => ({
     root: {
         background: '#86F0D3',
+        height: 'auto'
     },
     paper: {
         width: '50vw',
@@ -65,6 +66,9 @@ const useStyles = makeStyles(theme => ({
         }
     },
     [theme.breakpoints.down('md')]: {
+        root: {
+            padding: '30px 0'
+        },
         paper: {
             width: '90vw'
         },
