@@ -191,7 +191,7 @@ const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.up('xl')]: {
         textfield: {
-            width: '400px'
+            width: '600px'
         }
     },
     [theme.breakpoints.down('md')]: {

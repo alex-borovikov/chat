@@ -2,6 +2,10 @@ import {makeStyles} from "@material-ui/core";
 
 
 const useStyles = makeStyles(theme => ({
+    error: {
+        margin: '5px 0',
+        color: 'red'
+    },
     root: {
         background: '#86F0D3',
         minHeight: '100vh',
