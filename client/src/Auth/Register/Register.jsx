@@ -57,7 +57,7 @@ const Register = () => {
                             </div>
                             <div className={classes.fieldWrapper}>
                                 <TextField
-                                    id="outlined-basic"
+                                    id="outlined-basic_surname"
                                     label="Surname"
                                     value={values.surname}
                                     name='surname'
@@ -69,7 +69,7 @@ const Register = () => {
                             </div>
                             <div className={classes.fieldWrapper}>
                                 <TextField
-                                    id="outlined-basic"
+                                    id="outlined-basic_email"
                                     required
                                     label="Email"
                                     value={values.email}
@@ -81,7 +81,7 @@ const Register = () => {
                             </div>
                             <div className={classes.fieldWrapper}>
                                 <TextField
-                                    id="outlined-basic"
+                                    id="outlined-basic_pass"
                                     required
                                     label="Password"
                                     type='password'
@@ -94,7 +94,7 @@ const Register = () => {
                             </div>
                             <div className={classes.fieldWrapper}>
                                 <TextField
-                                    id="outlined-basic"
+                                    id="outlined-basic_cinfirm"
                                     required
                                     label="Confirm"
                                     type='password'
