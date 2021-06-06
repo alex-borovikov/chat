@@ -94,7 +94,7 @@ const Register = () => {
                             </div>
                             <div className={classes.fieldWrapper}>
                                 <TextField
-                                    id="outlined-basic_cinfirm"
+                                    id="outlined-basic_confirm"
                                     required
                                     label="Confirm"
                                     type='password'
