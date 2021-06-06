@@ -1,8 +1,8 @@
-import {combineReducers, createStore} from "redux";
+import {combineReducers, createStore, applyMiddleware} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
-const userReducer = require("./userReducer");
-const {applyMiddleware} = require("redux");
-const thunk = require("redux-thunk");
+import userReducer from './userReducer'
+import thunk from 'redux-thunk'
+
 
 const combine = combineReducers({
     user: userReducer
