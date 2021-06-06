@@ -9,6 +9,7 @@ import useStylesReg from "../Register/Register.styles";
 
 import { Formik } from "formik";
 import * as yup from "yup";
+import GoogleButton from "../../GoogleButton/GoogleButton";
 
 const Login = () => {
     const classes = useStyles();
@@ -124,10 +125,7 @@ const Login = () => {
                                     <span className={classes.form__section_divider} />
                                 </div>
                                 <div className={clsx(classes.form__section, classes.form__btn)}>
-                                    <Button variant="outlined">
-                                        <img alt='google_logo.png' src="https://img.icons8.com/office/16/000000/google-logo.png"/>
-                                        <span>Continue with google</span>
-                                    </Button>
+                                    <GoogleButton variant="outlined" />
                                 </div>
                                 <div className={clsx(classes.form__section, classes.form__section_parent, classes.nodisplay)}>
                                     <span className={clsx(classes.form__section_divider, classes.dividerMargin)} />

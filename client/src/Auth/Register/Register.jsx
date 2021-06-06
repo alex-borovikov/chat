@@ -7,6 +7,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 import { Formik } from "formik";
 import * as yup from "yup";
+import GoogleButton from "../../GoogleButton/GoogleButton";
 
 const Register = () => {
     const classes = useStyles()
@@ -126,10 +127,7 @@ const Register = () => {
                                 <span>Sign in</span>
                             </Button>
                         </a>
-                        <Button variant="contained" className={classes.google}>
-                            <img alt='google_logo.png' src="https://img.icons8.com/office/16/000000/google-logo.png"/>
-                            <span>Continue with Google</span>
-                        </Button>
+                        <GoogleButton variant="contained" className={classes.google} />
                     </div>
                 </div>
             </Paper>

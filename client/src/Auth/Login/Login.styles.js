@@ -118,7 +118,14 @@ const useStyles = makeStyles(theme => ({
     },
     form__section_showPassword: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        '& .MuiCheckbox-colorSecondary.Mui-checked': {
+            color: '#86F0D3'
+        },
+        '& .PrivateSwitchBase-root-38': {
+            padding: '0',
+            marginRight: '8px'
+        }
     },
     greeting: {
         width: '70%',
