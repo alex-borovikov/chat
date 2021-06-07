@@ -1,6 +1,5 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core";
-import Navbar from "./Chat/Navbar/Navbar";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Settings from "./Settings/Settings";
 import Chat from "./Chat/Chat";
