@@ -1,8 +1,8 @@
 import React from 'react';
 import {Divider, makeStyles} from "@material-ui/core";
-import style from '../Chat.styles'
+import style from '../Aside.styles'
 import clsx from "clsx";
-import Avatar from "../../../Avatar/Avatar";
+import Avatar from "../../../../Avatar/Avatar";
 import useStyles from "./Dialogs.styles";
 
 
@@ -14,7 +14,7 @@ const Dialogs = ({status, src, name, time, shortMessage}) => {
     return (
         <React.Fragment>
             <div className={clsx(classes.root, classesStyles.padding)}>
-                <Avatar online={false} src={src} name={name} />
+                <Avatar online={status} src={src} name={name} />
                 <div className={classes.dialog}>
                     <div className={classes.header}>
                         <p className={classes.name}>{name}</p>

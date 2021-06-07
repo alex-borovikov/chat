@@ -1,9 +1,9 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core";
-import Navbar from "./Navbar/Navbar";
+import Navbar from "./Chat/Navbar/Navbar";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
-import Chat from "./Chat/Chat";
 import Settings from "./Settings/Settings";
+import Chat from "./Chat/Chat";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -18,7 +18,6 @@ const UserApi = () => {
     return (
         <Router>
             <div className={classes.root}>
-                <Navbar />
                 <Switch>
                     <Route path='/user' component={Chat} />
                     <Route path='/settings' component={Settings} />
