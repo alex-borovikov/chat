@@ -11,7 +11,7 @@ import clsx from "clsx";
 
 
 const Chat = () => {
-    const classes = useStyles()
+    const classes = useStyles();
     return (
         <Box display={'flex'} className={classes.root}>
             <aside className={classes.sidebar}>
@@ -27,10 +27,9 @@ const Chat = () => {
                     </Box>
                 </div>
                 <div className='dialogs'>
+                    <Dialogs status={false} />
                     <Dialogs />
                     <Dialogs />
-                    <Dialogs />
-
                 </div>
             </aside>
             <div>chat</div>
