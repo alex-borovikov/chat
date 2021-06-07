@@ -13,6 +13,8 @@ const useStyles = makeStyles(theme => ({
     },
     search: {
         borderBottom: '1px solid #e3e3e3',
+        display: 'flex',
+        justifyContent: 'space-between'
     },
     input: {
         border: 'none',

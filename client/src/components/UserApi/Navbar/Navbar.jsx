@@ -38,16 +38,16 @@ const Navbar = () => {
     return (
         <div className={classes.root}>
             <div className={classes.header}>
-                <NavLink to="/api/user/chat">Chat</NavLink>
+                <NavLink to="/user">Chat</NavLink>
             </div>
             <div className={classes.nav}>
                 <nav>
-                    <NavLink to='/api/user/chat'>
+                    <NavLink to='/user'>
                         <div className={classes.routerElement}>
                             <ForumIcon className={classes.icon} />
                         </div>
                     </NavLink>
-                    <NavLink to='/api/user/settings'>
+                    <NavLink to='/user/settings'>
                         <div className={classes.routerElement}>
                             <SettingsIcon className={classes.icon} />
                         </div>

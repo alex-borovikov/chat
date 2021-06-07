@@ -45,7 +45,7 @@ const Login = () => {
                             <div className={classes.already_account}>
                                 <p>Dont have an account?</p>
                                 <p>
-                                    <a href="/api/signup">Sign up</a>
+                                    <a href="/signup">Sign up</a>
                                 </p>
                             </div>
                         </div>
@@ -133,7 +133,7 @@ const Login = () => {
                                     <span className={classes.form__section_divider} />
                                 </div>
                                 <div className={clsx(classes.form__section, classes.form__signup)}>
-                                    <a href="/api/signup">
+                                    <a href="/signup">
                                         <Button variant="contained" >
                                             <span>Sign up</span>
                                         </Button>

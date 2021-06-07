@@ -1,7 +1,7 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core";
 import Navbar from "./Navbar/Navbar";
-import {Route, BrowserRouter as Router} from "react-router-dom";
+import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Chat from "./Chat/Chat";
 import Settings from "./Settings/Settings";
 
@@ -19,8 +19,10 @@ const UserApi = () => {
         <Router>
             <div className={classes.root}>
                 <Navbar />
-                <Route path='/api/user/chat' component={Chat} />
-                <Route path='/api/user/settings' component={Settings} />
+                <Switch>
+                    <Route path='/user' component={Chat} />
+                    <Route path='/settings' component={Settings} />
+                </Switch>
             </div>
         </Router>
     );

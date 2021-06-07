@@ -1,5 +1,5 @@
 import {makeStyles} from "@material-ui/core";
-import back from "../../assets/images/fon.jpg";
+import back from "../../../assets/images/fon.jpg";
 
 const useStyles = makeStyles(theme => ({
     root: {

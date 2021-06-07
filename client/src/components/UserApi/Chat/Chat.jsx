@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Divider, makeStyles} from "@material-ui/core";
+import {Box, Divider} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import {IconButton} from "@material-ui/core";
@@ -17,20 +17,20 @@ const Chat = () => {
             <aside className={classes.sidebar}>
                 <div className={clsx(classes.search, classes.padding)}>
                     <input type='text' className={classes.input} placeholder={'Search'} />
-                    <IconButton>
-                        <SearchIcon />
-                    </IconButton>
-                    <IconButton>
-                        <AddIcon />
-                    </IconButton>
+                    <Box>
+                        <IconButton>
+                            <SearchIcon />
+                        </IconButton>
+                        <IconButton>
+                            <AddIcon />
+                        </IconButton>
+                    </Box>
                 </div>
                 <div className='dialogs'>
                     <Dialogs />
-                    <Divider />
                     <Dialogs />
-                    <Divider />
                     <Dialogs />
-                    <Divider />
+
                 </div>
             </aside>
             <div>chat</div>
