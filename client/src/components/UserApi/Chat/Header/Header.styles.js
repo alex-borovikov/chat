@@ -8,7 +8,7 @@ const useStyles = makeStyles({
         },
         borderBottom: '1px solid #e3e3e3',
         display: 'grid',
-        gridTemplateColumns: '1.6fr 3fr 1.4fr'
+        gridTemplateColumns: '1.5fr 3fr 1.5fr'
     },
     input: {
         border: 'none',
