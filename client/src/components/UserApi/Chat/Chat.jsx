@@ -1,11 +1,12 @@
-import React, {Fragment} from 'react';
-import Navbar from "./Navbar/Navbar";
+import React from 'react';
+import Header from "./Header/Header";
+
 
 const Chat = () => {
     return (
-       <Fragment>
-           <Navbar />
-       </Fragment>
+       <div className='content'>
+           <Header />
+       </div>
     );
 };
 

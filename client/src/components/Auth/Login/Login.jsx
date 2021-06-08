@@ -10,6 +10,7 @@ import useStylesReg from "../Register/Register.styles";
 import { Formik } from "formik";
 import * as yup from "yup";
 import GoogleButton from "../../GoogleButton/GoogleButton";
+import ERRORS from '../../../configs/Forms.config'
 
 const Login = () => {
     const classes = useStyles();
@@ -18,8 +19,8 @@ const Login = () => {
     const [type, setType] = useState('password');
 
     const validationSchema = yup.object().shape({
-        email: yup.string().email().typeError('Email is required field').required(),
-        password: yup.string().required('No password provided'),
+        email: yup.string().email().typeError(ERRORS.EMAIL_INVALID).required(),
+        password: yup.string().required(ERRORS.PASSWORD_INVALID),
     })
 
     const handleChangeFlag = (event) => {

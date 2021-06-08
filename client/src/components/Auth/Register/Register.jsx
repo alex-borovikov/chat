@@ -4,6 +4,7 @@ import useStyles from "./Register.styles";
 import useLoginStyles from '../Login/Login.styles'
 import clsx from "clsx";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import ERRORS from '../../../configs/Forms.config'
 
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -16,9 +17,9 @@ const Register = () => {
     const registerSchema = yup.object().shape({
         name: yup.string().required(),
         surname: yup.string(),
-        email: yup.string().email().typeError('Email is required field').required(),
-        password: yup.string().min(6, 'Password is too short, min 6 symbols').required('No password provided'),
-        confirm: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').min(6, 'Password is too short, min 6 symbols').required()
+        email: yup.string().email().typeError(ERRORS.EMAIL_INVALID).required(),
+        password: yup.string().min(6, ERRORS.PASSWORD_TO_SHORT).required(ERRORS.PASSWORD_REQUIRED),
+        confirm: yup.string().oneOf([yup.ref('password'), null], ERRORS.PASSWORD_MUST_MATCH).min(6, ERRORS.PASSWORD_TO_SHORT).required()
     })
 
     return (
