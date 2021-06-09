@@ -1,6 +1,7 @@
 require('dotenv').config()
 const colors = require('colors')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const express = require('express')
 const app = express();
@@ -14,6 +15,7 @@ app.disable('x-powered-by')
 
 const authRouter = require('./routes/auth.route')
 
+app.use(cors())
 app.use(express.json())
 app.use('/api/auth', authRouter)
 

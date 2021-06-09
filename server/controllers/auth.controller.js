@@ -7,7 +7,7 @@ class AuthController{
      static async register(req,res){
         const {name, surname, email, password} = req.body;
 
-        const candidate = User.findOne({email});
+        const candidate = await User.findOne({email});
         if(candidate){
             return res.status(400).json({message: 'User with this email is exist!'})
         }
