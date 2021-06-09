@@ -3,14 +3,11 @@ import {makeStyles} from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-<<<<<<< HEAD
         overflow: 'hidden',
         [theme.breakpoints.down('md')]: {
             display: 'none'
         }
-=======
-        overflow: 'hidden'
->>>>>>> 138c62049c466c9a59121cf131c7f674dce845b9
+
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -18,18 +15,13 @@ const useStyles = makeStyles((theme) => ({
     },
     accordionContent: {
         background: '#D9E7F4',
-<<<<<<< HEAD
         display: 'flex',
         flexWrap: 'wrap'
     },
     file: {
-        marginRight: 'auto'
+        marginRight: '15px',
+        marginTop: '15px'
     } ,
-=======
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)'
-    },
->>>>>>> 138c62049c466c9a59121cf131c7f674dce845b9
     fileType: {
         background: '#fff',
         width: 'fit-content',

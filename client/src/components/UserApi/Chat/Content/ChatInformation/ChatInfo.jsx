@@ -27,12 +27,10 @@ const ChatInfo = () => {
                 <AccordionDetails className={classes.accordionContent}>
                    <File source={filetype} fileName='Document.txt' fileType='txt' fileSize='365 kb' />
                    <File source={filetype2} fileName='Document.excel' fileType='txt' fileSize='365 kb' />
-<<<<<<< HEAD
                    <File source={filetype2} fileName='Document.excel' fileType='txt' fileSize='365 kb' />
                    <File source={filetype2} fileName='Document.excel' fileType='txt' fileSize='365 kb' />
                    <File source={filetype2} fileName='Document.excel' fileType='txt' fileSize='365 kb' />
-=======
->>>>>>> 138c62049c466c9a59121cf131c7f674dce845b9
+
                 </AccordionDetails>
             </Accordion>
 
