@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     root: {
         minHeight: '100vh',
         display: 'grid',
-        gridTemplateColumns: '70px 1fr'
+        gridTemplateColumns: '70px 1fr',
     }
 }))
 
