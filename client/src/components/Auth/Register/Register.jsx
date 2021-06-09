@@ -9,10 +9,14 @@ import ERRORS from '../../../configs/Forms.config'
 import { Formik } from "formik";
 import * as yup from "yup";
 import GoogleButton from "../../GoogleButton/GoogleButton";
+import {useDispatch} from "react-redux";
+import {register} from '../../../actions/auth.actions'
 
 const Register = () => {
     const classes = useStyles()
     const classes_login = useLoginStyles()
+
+    const dispatch = useDispatch();
 
     const registerSchema = yup.object().shape({
         name: yup.string().required(),
@@ -36,9 +40,8 @@ const Register = () => {
                         password: '',
                         confirm: ''
                     }}
-                    onSubmit={async values => {
-                        await new Promise(resolve => setTimeout(resolve, 500));
-                        alert(JSON.stringify(values, null, 2));
+                    onSubmit={values => {
+                        dispatch(register(values.name, values.surname, values.email, values.password))
                     }}
                     validationSchema={registerSchema}
                 >
@@ -91,7 +94,8 @@ const Register = () => {
                                     onChange={handleChange}
                                     variant="outlined"
                                 />
-                                {touched.password && errors.password && <p className={classes.error}>{errors.password}</p>}
+                                {touched.password && errors.password &&
+                                <p className={classes.error}>{errors.password}</p>}
                             </div>
                             <div className={classes.fieldWrapper}>
                                 <TextField
@@ -107,9 +111,10 @@ const Register = () => {
                                 {touched.confirm && errors.confirm && <p className={classes.error}>{errors.confirm}</p>}
                             </div>
                             <div className={classes.button}>
-                                <Button disabled={!isValid && !dirty} type='submit' onClick={handleSubmit} variant="contained" color="primary">
+                                <Button disabled={!isValid && !dirty} type='submit' onClick={handleSubmit}
+                                        variant="contained" color="primary">
                                     <span>Sign up</span>
-                                    <ArrowForwardIcon className={classes_login.arrow} />
+                                    <ArrowForwardIcon className={classes_login.arrow}/>
                                 </Button>
                             </div>
                         </div>
@@ -117,18 +122,19 @@ const Register = () => {
 
                 </Formik>
                 <div className={classes.fields}>
-                    <div className={clsx(classes_login.form__section, classes_login.form__section_parent, classes_login.nodisplay)}>
-                        <span className={clsx(classes_login.form__section_divider, classes.dividerMargin)} />
+                    <div
+                        className={clsx(classes_login.form__section, classes_login.form__section_parent, classes_login.nodisplay)}>
+                        <span className={clsx(classes_login.form__section_divider, classes.dividerMargin)}/>
                         <span>or</span>
-                        <span className={classes_login.form__section_divider} />
+                        <span className={classes_login.form__section_divider}/>
                     </div>
                     <div className={clsx(classes_login.form__section, classes_login.form__signup, classes.btn)}>
                         <a href="/">
-                            <Button variant="contained" >
+                            <Button variant="contained">
                                 <span>Sign in</span>
                             </Button>
                         </a>
-                        <GoogleButton variant="contained" className={classes.google} />
+                        <GoogleButton variant="contained" className={classes.google}/>
                     </div>
                 </div>
             </Paper>

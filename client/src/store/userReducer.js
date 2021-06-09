@@ -1,6 +1,9 @@
+const SET_MESSAGE = 'SET_MESSAGE'
+
 const initialState = {
     auth: false,
-    user: {}
+    user: {},
+    message: ''
 };
 
 const userReducer = (state = initialState, action) => {
@@ -9,6 +12,8 @@ const userReducer = (state = initialState, action) => {
         default: return state;
     }
 }
+
+export const setMessage = message => ({type: SET_MESSAGE , payload: message})
 
 
 
