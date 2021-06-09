@@ -32,7 +32,7 @@ const Search = () => {
         setOpen(false);
     };
     return (
-        <Box display='flex' alignItems='center' justifyContent='space-between' className={clsx(headerClasses.borderRight,headerClasses.padding)}>
+        <Box display='flex' alignItems='center'  justifyContent='space-between' className={clsx(headerClasses.borderRight,headerClasses.padding)}>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -73,7 +73,7 @@ const Search = () => {
             <Grid >
                 <input type="text" className={headerClasses.input}/>
             </Grid>
-            <Grid >
+            <Grid className={classes.buttonContainer}>
                 <IconButton>
                     <SearchIcon />
                 </IconButton>

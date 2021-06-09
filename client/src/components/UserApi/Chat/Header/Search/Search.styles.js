@@ -25,6 +25,10 @@ const useStyles = makeStyles(theme => ({
         '&:hover': {
             background: '#2762D4'
         }
+    },
+    buttonContainer: {
+        display: 'flex',
+        flexWrap: 'nowrap'
     }
 }))
 export default useStyles

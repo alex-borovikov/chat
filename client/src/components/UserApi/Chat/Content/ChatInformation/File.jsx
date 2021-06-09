@@ -5,7 +5,7 @@ import {Tooltip} from "@material-ui/core";
 const File = ({source, fileName, fileSize, alt, fileType}) => {
     const classes = useStyles()
     return (
-        <div className='file'>
+        <div className={classes.file}>
             <div className={classes.fileType}>
                 <img className={classes.fileImage} src={source} alt={alt}/>
             </div>

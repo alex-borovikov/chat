@@ -1,37 +1,11 @@
 import React from 'react';
-import {makeStyles} from "@material-ui/core";
 import ForumIcon from '@material-ui/icons/Forum';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {NavLink} from "react-router-dom";
+import useStyles from "./Navbar.style";
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        background: '#4B83F0',
-    },
-    header: {
-        background: '#2762D4',
-        '& a': {
-            display: 'inline-block',
-            width: '100%',
-            fontWeight: 800,
-            fontSize: '1.3em',
-            textAlign: 'center',
-            padding: '15px 0',
-            color: '#fff',
-        }
-    },
-    icon: {
-        color: '#fff'
-    },
-    routerElement: {
-        textAlign: 'center',
-        padding: '15px 0',
-        transition: 'background .3s ease',
-        '&:hover': {
-            background: '#62D862'
-        }
-    }
-}))
+
+
 
 const Navbar = () => {
     const classes = useStyles()

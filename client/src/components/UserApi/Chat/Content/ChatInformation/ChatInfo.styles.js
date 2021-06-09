@@ -3,7 +3,10 @@ import {makeStyles} from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        [theme.breakpoints.down('md')]: {
+            display: 'none'
+        }
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -11,9 +14,12 @@ const useStyles = makeStyles((theme) => ({
     },
     accordionContent: {
         background: '#D9E7F4',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)'
+        display: 'flex',
+        flexWrap: 'wrap'
     },
+    file: {
+        marginRight: 'auto'
+    } ,
     fileType: {
         background: '#fff',
         width: 'fit-content',

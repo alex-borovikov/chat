@@ -1,7 +1,12 @@
 import {makeStyles} from "@material-ui/core";
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
+    root: {
+        [theme.breakpoints.down('md')]: {
+            display: 'none'
+        }
+    },
     name: {
         marginLeft: '10px'
     } ,
@@ -10,6 +15,6 @@ const useStyles = makeStyles({
         letterSpacing: '.3px',
         fontFamily: 'Roboto'
     }
-})
+}))
 
 export default useStyles
