@@ -3,16 +3,37 @@ import {Avatar, Box} from "@material-ui/core";
 import headerStyles from '../Header.styles'
 import useStyles from "./ProfileInfo.styles";
 import clsx from "clsx";
+import DefaultButton from "../../../../DefaultButton/DefaultButton";
+import {auth} from "../../../../../firebase";
+import {useDispatch} from "react-redux";
+import {setGoogleAuth} from '../../../../../store/userReducer'
+
 
 const ProfileInfo = ({name, source}) => {
     const headerClasses = headerStyles();
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const handleSignOut = () => {
+        try{
+            auth.signOut().then(() => {
+                dispatch(setGoogleAuth({auth: false, user: null}) )
+            })
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
     return (
-        <Box display='flex'  alignItems='center' className={clsx(headerClasses.padding, classes.root)}>
-            <Avatar alt={name} src={source} />
-            <div className={classes.name}>
-                <span className={classes.span}>Name Surname</span>
-            </div>
+        <Box display='flex' alignItems='center' justifyContent='space-between' className={clsx(headerClasses.padding, classes.root)}>
+            <Box display='flex' alignItems='center'>
+                <Avatar alt={name} src={source} />
+                <div className={classes.name}>
+                    <span className={classes.span}>{name}</span>
+                </div>
+            </Box>
+            <Box>
+                <DefaultButton onClick={handleSignOut} text='Sign out' />
+            </Box>
         </Box>
     );
 };

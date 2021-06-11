@@ -15,7 +15,7 @@ export const register = (name, surname, email, password) => {
         }
         catch(err){
             // dispatch(setMessage(err.response.data.message))
-            console.log({err})
+            console.log(err.response?.data?.message)
         }
     }
 }

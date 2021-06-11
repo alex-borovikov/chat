@@ -4,11 +4,13 @@ import {Button, Grid, IconButton, TextareaAutosize} from "@material-ui/core";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import Message from "./Message-item";
+import {useSelector} from "react-redux";
 
 
 const Messages = () => {
     const classes = useStyles()
     const [text, setText] = useState('');
+    const profile = useSelector(state => state.user.info)
 
     return (
         <div className={classes.root}>
@@ -22,7 +24,7 @@ const Messages = () => {
                 />
                 <Message
                     name='Paul McCartney'
-                    source='/src'
+                    source={profile?.photoURL}
                     time='19:48'
                     text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
                     recieved={false}
@@ -36,7 +38,7 @@ const Messages = () => {
                 />
                 <Message
                     name='Paul McCartney'
-                    source='/src'
+                    source={profile?.photoURL}
                     time='19:48'
                     text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
                     recieved={false}
@@ -50,21 +52,21 @@ const Messages = () => {
                 />
                 <Message
                     name='Paul McCartney'
-                    source='/src'
+                    source={profile?.photoURL}
                     time='19:48'
                     text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
                     recieved={false}
                 />
                 <Message
                     name='Paul McCartney'
-                    source='/src'
+                    source={profile?.photoURL}
                     time='19:48'
                     text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
                     recieved={false}
                 />
                 <Message
                     name='Paul McCartney'
-                    source='/src'
+                    source={profile?.photoURL}
                     time='19:48'
                     text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
                     recieved={false}

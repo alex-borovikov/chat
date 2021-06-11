@@ -13,11 +13,11 @@ const useStyles = makeStyles({
 const Chat = () => {
     const classes = useStyles();
     return (
-       <div className={classes.root}>
-           <Header />
-           <Content />
-       </div>
-    );
+        <div className={classes.root}>
+            <Header />
+            <Content />
+        </div>
+    )
 };
 
 export default Chat;

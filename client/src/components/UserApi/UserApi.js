@@ -1,9 +1,10 @@
 import React from 'react';
 import {makeStyles} from "@material-ui/core";
-import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
+import {Route, BrowserRouter as Router, Switch, Redirect} from "react-router-dom";
 import Settings from "./Settings/Settings";
 import Chat from "./Chat/Chat";
 import Navbar from "./Navbar/Navbar";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -15,7 +16,8 @@ const useStyles = makeStyles(theme => ({
 
 const UserApi = () => {
     const classes = useStyles()
-    return (
+    const auth = useSelector(state => state.user.auth)
+    return auth ? (
         <Router>
             <div className={classes.root}>
                 <Navbar />
@@ -25,7 +27,9 @@ const UserApi = () => {
                 </Switch>
             </div>
         </Router>
-    );
+    ) : (
+        <Redirect to='/' />
+    )
 };
 
 export default UserApi;

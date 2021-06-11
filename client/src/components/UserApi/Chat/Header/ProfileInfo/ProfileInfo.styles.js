@@ -14,7 +14,8 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 700,
         letterSpacing: '.3px',
         fontFamily: 'Roboto'
-    }
+    },
+
 }))
 
 export default useStyles

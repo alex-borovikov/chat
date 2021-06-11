@@ -28,11 +28,10 @@ const Register = () => {
         password: yup.string().min(6, ERRORS.PASSWORD_TO_SHORT).required(ERRORS.PASSWORD_REQUIRED),
         confirm: yup.string().oneOf([yup.ref('password'), null], ERRORS.PASSWORD_MUST_MATCH).min(6, ERRORS.PASSWORD_TO_SHORT).required()
     })
-
-    if(redirect){
-        return <Redirect to='/signup/middlepage' />
-    } else {
-        return (
+    return redirect ? (
+        <Redirect to='/signup/middlepage' />
+    )
+     : (
             <div className={clsx(classes_login.root, classes.root)}>
                 <Paper className={clsx(classes_login.paper, classes.paper)}>
                     <div className={classes.header}>
@@ -148,7 +147,6 @@ const Register = () => {
 
             </div>
         );
-    }
 };
 
 export default Register;

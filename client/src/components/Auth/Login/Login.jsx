@@ -12,22 +12,42 @@ import * as yup from "yup";
 import GoogleButton from "../../GoogleButton/GoogleButton";
 import ERRORS from '../../../configs/Forms.config'
 
+import {auth, provider} from '../../../firebase';
+import {useDispatch, useSelector} from "react-redux";
+import {setGoogleAuth} from '../../../store/userReducer'
+import {Redirect} from "react-router-dom";
+
 const Login = () => {
     const classes = useStyles();
     const classesReg = useStylesReg();
     const [checked, setChecked] = useState(false);
     const [type, setType] = useState('password');
+    const googleAuth = useSelector(state => state.user.auth)
+    const dispatch = useDispatch();
 
     const validationSchema = yup.object().shape({
         email: yup.string().email().typeError(ERRORS.EMAIL_INVALID).required(),
         password: yup.string().required(ERRORS.PASSWORD_INVALID),
     })
+    const handleSignIn = () => {
+        try{
+            auth.signInWithPopup(provider).then(result => {
+                dispatch(setGoogleAuth({auth: true, info: result.user}))
+            })
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
 
     const handleChangeFlag = (event) => {
         setChecked(event.target.checked);
         type === 'password' ? setType('text') : setType('password')
     };
-    return (
+
+    return googleAuth ? (
+        <Redirect to='/user' />
+    ) : (
         <div className={classes.root}>
             <Box display={'flex'} className={classes.paper}>
                 <Box className={clsx(classes.element, classes.left__section)}>
@@ -126,7 +146,7 @@ const Login = () => {
                                     <span className={classes.form__section_divider} />
                                 </div>
                                 <div className={clsx(classes.form__section, classes.form__btn)}>
-                                    <GoogleButton variant="outlined" />
+                                    <GoogleButton onClick={handleSignIn} variant="outlined" />
                                 </div>
                                 <div className={clsx(classes.form__section, classes.form__section_parent, classes.nodisplay)}>
                                     <span className={clsx(classes.form__section_divider, classes.dividerMargin)} />
@@ -149,6 +169,7 @@ const Login = () => {
 
         </div>
     )
+
 }
 
 export default Login;
