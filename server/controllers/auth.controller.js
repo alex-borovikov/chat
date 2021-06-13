@@ -20,7 +20,7 @@ class AuthController{
         const hashPass = bcrypt.hashSync(password, 5);
         const user = new User({name, surname, email, password: hashPass})
         await user.save();
-        res.status(200).json({message: 'Registration is successfull!'})
+        res.status(200).json({message: 'Registration is successful!'})
 
     }
      static login(req,res){
