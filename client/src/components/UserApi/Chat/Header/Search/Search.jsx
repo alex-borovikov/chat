@@ -10,20 +10,29 @@ import Fade from '@material-ui/core/Fade';
 import clsx from "clsx";
 import SearchItem from "./Search-Item";
 import CloseIcon from '@material-ui/icons/Close';
+import {searchUser} from "../../../../../actions/search.action";
 
 
 const Search = () => {
     const headerClasses = useHeaderStyles();
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState(false);
+    const [resultArray, setResult] = useState(false);
 
     const handleOpen = () => {
         setOpen(true);
     };
-
     const handleClose = () => {
         setOpen(false);
     };
+    const handleInputChange = async(e) => {
+        const response = await searchUser(e.target.value)
+        setMessage(response.message)
+        setResult([...response.result])
+        console.log(await searchUser(e.target.value))
+        console.log(response.result)
+    }
     return (
         <Box display='flex' alignItems='center'  justifyContent='space-between' className={clsx(headerClasses.borderRight,headerClasses.padding)}>
             <Modal
@@ -45,10 +54,16 @@ const Search = () => {
                         </IconButton>
                         <Box display='flex' flexDirection='column' className={classes.search}>
                             <Grid item className={classes.searchContainer}>
-                                <TextField placeholder='Search' />
+                                <TextField onChange={e => handleInputChange(e)} placeholder='Search' />
                             </Grid>
                             <Grid item className={classes.searchResultWindow}>
-                                <SearchItem source='/slide/e.txt' name='Alex Tadeski' />
+                                {resultArray.length > 0 ? resultArray.map((elem, index) => {
+                                    return <SearchItem key={index} source='/slide/e.txt' login={elem.login} name={`${elem.name} ${elem.surname}`} />
+                                }) : (
+                                    <p>No results</p>
+                                )
+                                }
+
                             </Grid>
                         </Box>
                     </div>
