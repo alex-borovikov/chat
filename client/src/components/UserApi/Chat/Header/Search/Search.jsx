@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Button, Grid, IconButton} from "@material-ui/core";
+import {Box, Button, Grid, IconButton, TextField} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 import useHeaderStyles from "../Header.styles";
@@ -7,22 +7,15 @@ import useStyles from "./Search.styles";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import clsx from "clsx";
+import SearchItem from "./Search-Item";
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const Search = () => {
     const headerClasses = useHeaderStyles();
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const [age, setAge] = React.useState('');
-
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
 
     const handleOpen = () => {
         setOpen(true);
@@ -47,26 +40,17 @@ const Search = () => {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <Grid>
-                            <FormControl className={classes.formControl}>
-                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={age}
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid>
-                            <Button className={classes.buttonAdd} variant="contained" color="primary">
-                                Add
-                            </Button>
-                        </Grid>
+                        <IconButton className={classes.iconButton} onClick={handleClose}>
+                            <CloseIcon />
+                        </IconButton>
+                        <Box display='flex' flexDirection='column' className={classes.search}>
+                            <Grid item className={classes.searchContainer}>
+                                <TextField placeholder='Search' />
+                            </Grid>
+                            <Grid item className={classes.searchResultWindow}>
+                                <SearchItem source='/slide/e.txt' name='Alex Tadeski' />
+                            </Grid>
+                        </Box>
                     </div>
                 </Fade>
             </Modal>
