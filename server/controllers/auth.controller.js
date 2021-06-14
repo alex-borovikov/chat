@@ -6,7 +6,7 @@ const {validationResult} = require('express-validator');
 
 
 class AuthController{
-     static async register(req,res){
+    static async register(req,res){
         const {name, surname, email, password} = req.body;
 
         const candidate = await User.findOne({email});
@@ -25,7 +25,7 @@ class AuthController{
         res.status(200).json({message: 'Registration is successful!'})
 
     }
-     static async login(req,res){
+    static async login(req,res){
          const {email, password} = req.body;
          const user = await User.findOne({email})
          if(!user){
@@ -48,7 +48,7 @@ class AuthController{
          })
 
     }
-     static async checkAuth(req,res){
+    static async checkAuth(req,res){
          try{
              const user = await User.findOne({_id: req.user.id})
              const token = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: '24h'})
@@ -63,6 +63,23 @@ class AuthController{
              res.status(400).json({message: "Ошибка"})
          }
     }
+    static async checkGoogleAuth(req,res){
+        try{
+            const {email} = req.query;
+            const user = await User.findOne({email});
+            res.status(200).json({
+                message: 'Success!',
+                user: {
+                    displayName: user.name + ' ' + user.surname,
+                    id: user._id,
+                    dialogs: user.dialogs
+                }})
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
 }
 
 module.exports = AuthController;

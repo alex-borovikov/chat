@@ -10,6 +10,6 @@ router.post('/signup',[
 ], auth.register)
 router.post('/signin', auth.login)
 router.get('/check', authMiddleware.auth, auth.checkAuth)
-router.get('/checkWithGoogle', authMiddleware.authWithGoogle)
+router.get('/checkWithGoogle', authMiddleware.authWithGoogle, auth.checkGoogleAuth)
 
 module.exports = router;
