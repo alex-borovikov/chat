@@ -41,6 +41,8 @@ export const login = (email, password) =>{
 }
 
 
+
+
 export const auth = () => {
     return async (dispatch) => {
         try{
@@ -61,5 +63,23 @@ export const auth = () => {
             localStorage.removeItem('token')
         }
     }
+}
 
+export const authWithGoogle = (token) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get('http://localhost:4000/api/auth/checkWithGoogle', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const data = {
+                message: response.data.message,
+                user: response.data.user
+            }
+            dispatch(setUser(data))
+        } catch (err) {
+            console.log(err.response?.data?.message)
+        }
+    }
 }

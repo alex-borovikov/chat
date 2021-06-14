@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles} from "@material-ui/core";
 import {Route, BrowserRouter as Router, Switch, Redirect} from "react-router-dom";
 import Settings from "./Settings/Settings";
@@ -16,8 +16,8 @@ const useStyles = makeStyles(theme => ({
 
 const UserApi = () => {
     const classes = useStyles()
-    const auth = useSelector(state => state.user.auth)
-    return auth ? (
+    const isAuth = useSelector(state => state.user.auth)
+    return isAuth ? (
         <Router>
             <div className={classes.root}>
                 <Navbar />

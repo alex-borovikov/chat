@@ -9,6 +9,7 @@ router.post('/signup',[
     check('password').isLength({min: 6})
 ], auth.register)
 router.post('/signin', auth.login)
-router.get('/check', authMiddleware, auth.checkAuth)
+router.get('/check', authMiddleware.auth, auth.checkAuth)
+router.get('/checkWithGoogle', authMiddleware.authWithGoogle)
 
 module.exports = router;

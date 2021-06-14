@@ -17,7 +17,7 @@ const ProfileInfo = ({name, source}) => {
         try{
             if(localStorage.getItem('token')) localStorage.removeItem('token')
             auth.signOut().then(() => {
-                dispatch(setAuth({auth: false, user: null}) )
+                dispatch(setAuth(false) )
             })
         }
         catch(err){

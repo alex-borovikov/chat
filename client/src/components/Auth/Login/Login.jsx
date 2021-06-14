@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Button, Checkbox} from "@material-ui/core";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
@@ -14,8 +14,7 @@ import ERRORS from '../../../configs/Forms.config'
 
 import {auth, provider} from '../../../firebase';
 import {useDispatch, useSelector} from "react-redux";
-import {setGoogleAuth} from '../../../store/userReducer'
-import {login} from '../../../actions/auth.actions'
+import {login, authWithGoogle} from '../../../actions/auth.actions'
 import {Redirect} from "react-router-dom";
 
 const Login = () => {
@@ -23,18 +22,27 @@ const Login = () => {
     const classesReg = useStylesReg();
     const [checked, setChecked] = useState(false);
     const [type, setType] = useState('password');
-    const authUser = useSelector(state => state.user.auth)
+    const isAuth = useSelector(state => state.user.auth)
     const dispatch = useDispatch();
 
     const validationSchema = yup.object().shape({
         email: yup.string().email().typeError(ERRORS.EMAIL_INVALID).required(),
         password: yup.string().required(ERRORS.PASSWORD_INVALID),
     })
-    const handleSignIn = () => {
-        try{
-            auth.signInWithPopup(provider).then(result => {
-                dispatch(setGoogleAuth({auth: true, info: result.user}))
+    useEffect(() => {
+        // On state changed is observe when token is ready
+        auth.onAuthStateChanged(userCred => {
+            //Always use promise to make sure you accept the token
+            //Without "then" you recieved a 'null' and auth is failed
+            userCred.getIdToken().then(token => {
+                dispatch(authWithGoogle(token))
             })
+        })
+    }, [])
+    const handleSignIn = async () => {
+        try{
+            // Open popup window
+            auth.signInWithPopup(provider)
         }
         catch(err){
             console.log(err)
@@ -43,9 +51,10 @@ const Login = () => {
 
     const handleChangeFlag = (event) => {
         setChecked(event.target.checked);
+        //Show password in input
         type === 'password' ? setType('text') : setType('password')
     };
-    return authUser ? (
+    return isAuth ? (
         <Redirect to='/user' />
     ) : (
         <div className={classes.root}>

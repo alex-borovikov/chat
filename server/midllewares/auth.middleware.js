@@ -1,21 +1,40 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken')
+const admin = require('../configs/firebase.config')
 
-module.exports = (req,res,next) => {
-    if(req.method === 'OPTIONS'){
-        next()
-    }
-    try{
-        const token = req.headers.authorization.split(' ')[1];
-        if(!token){
-            res.status(403).json({message: 'You are not logged in!'})
+class AuthMiddleware {
+    static auth (req,res,next) {
+        if(req.method === 'OPTIONS'){
+            next()
         }
-        const decoded = jwt.verify(token, process.env.SECRET_KEY)
-        req.user = decoded;
-        next();
+        try{
+            const token = req.headers.authorization.split(' ')[1];
+            if(token === 'null'){
+                return res.status(403).json({message: 'You are not logged in!'})
+            }
+            const decoded = jwt.verify(token, process.env.SECRET_KEY)
+            req.user = decoded;
+            next();
+        }
+        catch(err){
+            console.log(err)
+        }
     }
-    catch(err){
-        console.log(err)
-        res.status(400).json({message: "Request error"})
+    static async authWithGoogle(req,res,next){
+        try{
+            const token = req.headers.authorization.split(' ')[1];
+            const decode = await admin.auth().verifyIdToken(token)
+            console.log(decode)
+            if(!decode){
+                return res.status(403).json({message: 'You are not logged in!'})
+            }
+            res.status(200).json({message: 'Success!', user: true})
+            next()
+        }
+        catch(err){
+            console.log(err)
+        }
     }
 }
+
+module.exports = AuthMiddleware;

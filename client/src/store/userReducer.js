@@ -6,6 +6,7 @@ const initialState = {
     auth: false,
     info: {},
     message: '404 - Error',
+    loader: false,
 
 };
 
@@ -16,26 +17,28 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 message: action.payload
             }
-        case(SET_GOOGLE_AUTH):
+        case(SET_AUTH):
             return {
                 ...state,
                 message: 'Вы авторизировались!',
                 auth: action.payload.auth,
-                info: action.payload.user
+                info: action.payload.user,
+                loader: false
             }
         case(SET_USER):
             return {
                 ...state,
                 auth: true,
                 info: action.payload.user,
-                message: action.payload.message
+                message: action.payload.message,
+                loader: false
             }
         default: return state;
     }
 }
 
 export const setMessage = message => ({type: SET_MESSAGE , payload: message})
-export const setAuth = user => ({type: SET_AUTH , payload: {auth: user.auth, user: user.info}})
+export const setAuth = boolean => ({type: SET_AUTH , payload: boolean})
 export const setUser = payload => ({type: SET_USER, payload: payload})
 
 
