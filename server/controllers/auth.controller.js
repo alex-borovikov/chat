@@ -1,5 +1,7 @@
+require('dotenv').config();
 const User = require('../models/User.model')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
 const {validationResult} = require('express-validator');
 
 
@@ -23,11 +25,45 @@ class AuthController{
         res.status(200).json({message: 'Registration is successful!'})
 
     }
-     static login(req,res){
+     static async login(req,res){
+         const {email, password} = req.body;
+         const user = await User.findOne({email})
+         if(!user){
+             return res.status(400).json({message: 'Email is incorrect'})
+         }
+
+         const comparePassword = bcrypt.compareSync(password, user.password)
+         if (!comparePassword){
+             return res.status(400).json({message: 'Wrong password!'})
+         }
+
+         const token = jwt.sign({user: user._id}, process.env.SECRET_KEY, {expiresIn: '24h'})
+         res.json({
+             token,
+             message: 'Login successful',
+             user: {
+                 displayName: user.name + ' ' + user.surname,
+                 _id: user._id,
+                 dialogs: user.dialogs
+             }
+         })
 
     }
-     static auth(req,res){
-
+     static checkAuth(req,res){
+         try{
+             const user = User.findOne({_id: req.user._id})
+             if(!user){
+                 res.status(400).json({message: 'Auth check failed'})
+             }
+             const token = jwt.sign({user: user._id}, process.env.SECRET_KEY, {expiresIn: '24h'})
+             res.status(200).json({
+                 token
+             })
+         }
+         catch(err){
+             console.log(err)
+             res.status(400).json({message: "Ошибка"})
+         }
     }
 }
 

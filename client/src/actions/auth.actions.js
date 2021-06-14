@@ -1,5 +1,5 @@
 import axios from "axios";
-import {setMessage} from "../store/userReducer";
+import {setMessage, setUser} from "../store/userReducer";
 
 
 export const register = (name, surname, email, password) => {
@@ -18,4 +18,48 @@ export const register = (name, surname, email, password) => {
             console.log(err.response?.data?.message)
         }
     }
+}
+
+export const login = (email, password) =>{
+    return async (dispatch) => {
+        try{
+            const response = await axios.post('http://localhost:4000/api/auth/signin', {
+                email,
+                password
+            })
+            localStorage.setItem('token', response.data.token)
+            const data = {
+                message: response.data.message,
+                user: response.data.user
+            }
+            dispatch(setUser(data))
+        }
+        catch(err){
+            console.log(err.response?.data?.message)
+        }
+    }
+}
+
+
+export const auth = () => {
+    return async (dispatch) => {
+        try{
+            const response = await axios.get('http://localhost:4000/api/auth/check', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            const data = {
+                message: response.data.message,
+                user: response.data.user
+            }
+            dispatch(setUser(data))
+            localStorage.setItem('token', response.data.token)
+        }
+        catch(err){
+            console.log(err.response?.data?.message)
+            localStorage.removeItem('token')
+        }
+    }
+
 }

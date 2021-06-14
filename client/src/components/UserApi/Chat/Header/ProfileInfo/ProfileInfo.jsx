@@ -6,7 +6,7 @@ import clsx from "clsx";
 import DefaultButton from "../../../../DefaultButton/DefaultButton";
 import {auth} from "../../../../../firebase";
 import {useDispatch} from "react-redux";
-import {setGoogleAuth} from '../../../../../store/userReducer'
+import {setAuth} from '../../../../../store/userReducer'
 
 
 const ProfileInfo = ({name, source}) => {
@@ -15,8 +15,9 @@ const ProfileInfo = ({name, source}) => {
     const dispatch = useDispatch();
     const handleSignOut = () => {
         try{
+            if(localStorage.getItem('token')) localStorage.removeItem('token')
             auth.signOut().then(() => {
-                dispatch(setGoogleAuth({auth: false, user: null}) )
+                dispatch(setAuth({auth: false, user: null}) )
             })
         }
         catch(err){

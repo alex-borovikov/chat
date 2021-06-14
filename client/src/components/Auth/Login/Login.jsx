@@ -15,6 +15,7 @@ import ERRORS from '../../../configs/Forms.config'
 import {auth, provider} from '../../../firebase';
 import {useDispatch, useSelector} from "react-redux";
 import {setGoogleAuth} from '../../../store/userReducer'
+import {login} from '../../../actions/auth.actions'
 import {Redirect} from "react-router-dom";
 
 const Login = () => {
@@ -22,7 +23,7 @@ const Login = () => {
     const classesReg = useStylesReg();
     const [checked, setChecked] = useState(false);
     const [type, setType] = useState('password');
-    const googleAuth = useSelector(state => state.user.auth)
+    const authUser = useSelector(state => state.user.auth)
     const dispatch = useDispatch();
 
     const validationSchema = yup.object().shape({
@@ -44,8 +45,7 @@ const Login = () => {
         setChecked(event.target.checked);
         type === 'password' ? setType('text') : setType('password')
     };
-
-    return googleAuth ? (
+    return authUser ? (
         <Redirect to='/user' />
     ) : (
         <div className={classes.root}>
@@ -78,9 +78,8 @@ const Login = () => {
                             <h2>Sign in</h2>
                         </div>
                         <Formik
-                            onSubmit={async values => {
-                                await new Promise(resolve => setTimeout(resolve, 500));
-                                alert(JSON.stringify(values, null, 2));
+                            onSubmit={values => {
+                                dispatch(login(values.email, values.password))
                             }}
                             initialValues={{
                                 email: '',

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Button, Grid, IconButton, TextField} from "@material-ui/core";
+import {Box, Grid, IconButton, TextField} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 import useHeaderStyles from "../Header.styles";
@@ -25,13 +25,12 @@ const Search = () => {
     };
     const handleClose = () => {
         setOpen(false);
+        setResult(false)
     };
     const handleInputChange = async(e) => {
         const response = await searchUser(e.target.value)
         setMessage(response.message)
         setResult([...response.result])
-        console.log(await searchUser(e.target.value))
-        console.log(response.result)
     }
     return (
         <Box display='flex' alignItems='center'  justifyContent='space-between' className={clsx(headerClasses.borderRight,headerClasses.padding)}>
@@ -60,7 +59,7 @@ const Search = () => {
                                 {resultArray.length > 0 ? resultArray.map((elem, index) => {
                                     return <SearchItem key={index} source='/slide/e.txt' login={elem.login} name={`${elem.name} ${elem.surname}`} />
                                 }) : (
-                                    <p>No results</p>
+                                    <p>{message}</p>
                                 )
                                 }
 

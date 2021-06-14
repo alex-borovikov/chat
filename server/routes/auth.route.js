@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const auth = require('../controllers/auth.controller')
 const {check} = require('express-validator')
+const authMiddleware = require('../midllewares/auth.middleware')
 
 router.post('/signup',[
     check('name').isLength({min: 3}),
@@ -8,5 +9,6 @@ router.post('/signup',[
     check('password').isLength({min: 6})
 ], auth.register)
 router.post('/signin', auth.login)
+router.get('/check', authMiddleware, auth.checkAuth)
 
 module.exports = router;
