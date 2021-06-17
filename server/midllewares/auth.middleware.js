@@ -25,9 +25,8 @@ class AuthMiddleware {
             const token = req.headers.authorization.split(' ')[1];
             const decode = await admin.auth().verifyIdToken(token)
             if(!decode){
-                return res.status(403).json({message: 'You are not logged in!'})
+                return res.status(403).json({message: 'You are not logged in! !'})
             }
-
             next()
         }
         catch(err){

@@ -65,17 +65,19 @@ export const auth = () => {
     }
 }
 
-export const authWithGoogle = (token) => {
+export const authWithGoogle = (token, userCred) => {
     return async (dispatch) => {
+        console.log(userCred)
         try {
             const response = await axios.get('http://localhost:4000/api/auth/checkWithGoogle', {
                 headers: {
                     Authorization: `Bearer ${token}`
-                }
+                },
+                params: {userInfo: userCred}
             })
             const data = {
                 message: response.data.message,
-                user: response.data.user
+                user: response.data.user,
             }
             dispatch(setUser(data))
         } catch (err) {

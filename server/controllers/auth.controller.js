@@ -43,7 +43,8 @@ class AuthController{
              user: {
                  displayName: user.name + ' ' + user.surname,
                  id: user._id,
-                 dialogs: user.dialogs
+                 dialogs: user.dialogs,
+                 avatar: user.avatar
              }
          })
 
@@ -55,7 +56,12 @@ class AuthController{
 
              res.json({
                  token,
-                 user: user
+                 user: {
+                     displayName: user.name + ' ' + user.surname,
+                     id: user._id,
+                     dialogs: user.dialogs,
+                     avatar: user.avatar
+                 }
              })
          }
          catch(err){
@@ -65,15 +71,30 @@ class AuthController{
     }
     static async checkGoogleAuth(req,res){
         try{
-            const {email} = req.query;
-            const user = await User.findOne({email});
-            res.status(200).json({
+            //Firebase returns a JSON string
+            const userInfo = JSON.parse(req.query.userInfo);
+            const user = await User.findOne({email: userInfo.email});
+            if(!user){
+                //If user login at first time with Google or anything else - we dont have any info about him in database
+                const createUser = new User({
+                    name: userInfo.displayName,
+                    surname: '',
+                    email: userInfo.email,
+                    avatar: userInfo.photoURL
+                })
+                await createUser.save()
+            }
+            const relevantUser = await User.findOne({email: userInfo.email});
+            const data = {
                 message: 'Success!',
                 user: {
-                    displayName: user.name + ' ' + user.surname,
-                    id: user._id,
-                    dialogs: user.dialogs
-                }})
+                    displayName: user?.name + user?.surname || relevantUser.name + relevantUser.surname,
+                    id: user?._id || relevantUser._id,
+                    dialogs: user?.dialogs || relevantUser.dialogs,
+                    avatar: user?.avatar || relevantUser.avatar
+                }
+            }
+            res.status(200).json(data)
         }
         catch(err){
             console.log(err)

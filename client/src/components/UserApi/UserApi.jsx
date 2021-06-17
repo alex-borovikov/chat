@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {makeStyles} from "@material-ui/core";
 import {Route, BrowserRouter as Router, Switch, Redirect} from "react-router-dom";
 import Settings from "./Settings/Settings";

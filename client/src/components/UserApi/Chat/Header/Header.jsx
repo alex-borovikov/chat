@@ -12,7 +12,7 @@ const Header = () => {
         <div className={classes.root}>
            <Search />
            <AddFriends />
-           <ProfileInfo name={profile?.displayName} source={profile?.photoURL} />
+           <ProfileInfo name={profile?.displayName} source={profile?.avatar} />
         </div>
     );
 };

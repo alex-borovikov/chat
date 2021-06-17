@@ -11,7 +11,6 @@ import {auth} from './actions/auth.actions'
 
 const App = () => {
     const message = useSelector(state => state.user.message)
-    const isAuth = useSelector(state => state.user.auth)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(auth())

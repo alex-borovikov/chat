@@ -5,7 +5,7 @@ const UserSchema = mongoose.Schema({
     surname: {type: String, default: ''},
     login: String,
     email: {type: String, required: true, unique: true},
-    password: {type: String, required: true},
+    password: {type: String},
     avatar: {type: String, default: null},
     last_seen: String,
     dialogs: [{type: mongoose.Types.ObjectId, ref: 'Dialog'}]

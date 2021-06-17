@@ -6,7 +6,7 @@ const initialState = {
     auth: false,
     info: {},
     message: '404 - Error',
-    loader: false,
+    loader: false
 
 };
 
@@ -20,9 +20,7 @@ const userReducer = (state = initialState, action) => {
         case(SET_AUTH):
             return {
                 ...state,
-                message: 'Вы авторизировались!',
-                auth: action.payload.auth,
-                info: action.payload.user,
+                auth: action.payload,
                 loader: false
             }
         case(SET_USER):
@@ -31,14 +29,13 @@ const userReducer = (state = initialState, action) => {
                 auth: true,
                 info: action.payload.user,
                 message: action.payload.message,
-                loader: false
             }
         default: return state;
     }
 }
 
 export const setMessage = message => ({type: SET_MESSAGE , payload: message})
-export const setAuth = boolean => ({type: SET_AUTH , payload: boolean})
+export const setAuth = boolean => ({type: SET_AUTH , payload: boolean}) //Using only for logout
 export const setUser = payload => ({type: SET_USER, payload: payload})
 
 
