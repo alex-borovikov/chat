@@ -29,6 +29,7 @@ const userReducer = (state = initialState, action) => {
                 auth: true,
                 info: action.payload.user,
                 message: action.payload.message,
+                loader: false
             }
         default: return state;
     }

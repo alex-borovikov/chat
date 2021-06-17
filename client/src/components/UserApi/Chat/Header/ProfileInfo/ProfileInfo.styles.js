@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     span: {
         fontWeight: 700,
         letterSpacing: '.3px',
-        fontFamily: 'Roboto'
+        fontFamily: 'Roboto',
     },
 
 }))

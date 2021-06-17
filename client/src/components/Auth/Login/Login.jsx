@@ -33,7 +33,7 @@ const Login = () => {
         // On state changed is observe when token is ready
        auth.onAuthStateChanged(userCred => {
             //Always use promise to make sure you accept the token
-            //Without "then" you recieved a 'null' and auth is failed
+            //Without "then" you recieve a 'null' and auth is fail
             // You must use 'if', if you dont want to take an error
             if(userCred){
                 userCred.getIdToken().then(token => {
@@ -42,7 +42,7 @@ const Login = () => {
             }
         })
     })
-    const handleSignIn = async () => {
+    const handleSignIn = () => {
         try{
             // Open popup window
             auth.signInWithPopup(provider)

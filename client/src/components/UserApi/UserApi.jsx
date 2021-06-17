@@ -5,6 +5,7 @@ import Settings from "./Settings/Settings";
 import Chat from "./Chat/Chat";
 import Navbar from "./Navbar/Navbar";
 import {useSelector} from "react-redux";
+import Loader from "../Loader/Loader";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -23,12 +24,12 @@ const UserApi = () => {
                 <Navbar />
                 <Switch>
                     <Route path='/user' exact component={Chat} />
-                    <Route path='/user/settings' component={Settings} />
+                    <Route path='/user/settings' exact component={Settings} />
                 </Switch>
             </div>
         </Router>
     ) : (
-        <Redirect to='/' />
+        <Loader path='/user' text='Loading..' />
     )
 };
 

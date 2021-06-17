@@ -50,7 +50,7 @@ const MiddlePage = (props) => {
                 </p>
             </div>
             <div style={{display: spinner}} className={classes.spinner}>
-                <PacmanLoader loading color={'#fff'} />
+                <PacmanLoader loading color={'#F7D755'} />
             </div>
         </div>
     );

@@ -7,7 +7,8 @@ const useStyles = makeStyles({
         color: '#fff',
         '&:hover': {
             background: '#86cd5f'
-        }
+        },
+        whiteSpace: 'nowrap'
     }
 })
 
