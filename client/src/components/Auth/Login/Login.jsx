@@ -25,6 +25,7 @@ const Login = () => {
     const [type, setType] = useState('password');
     const isAuth = useSelector(state => state.user.auth)
     const isLoader =  useSelector(state => state.user.loader)
+    const message =  useSelector(state => state.user.message)
     const loader = localStorage.getItem('userAuth') || isLoader;
     const dispatch = useDispatch();
 
@@ -49,6 +50,8 @@ const Login = () => {
     })
     const handleSignIn = () => {
         try{
+            //Set true to turn on the loader
+            if(!localStorage.getItem('userAuth')) localStorage.setItem('userAuth', true)
             // Open popup window
             auth.signInWithPopup(provider)
         }
@@ -69,7 +72,7 @@ const Login = () => {
                 <Loader text='Loading...' />
             ) : (
                 <div className={classes.root} >
-                <Box display={'flex'} className={classes.paper}>
+                    <Box display={'flex'} className={classes.paper}>
                     <Box className={clsx(classes.element, classes.left__section)}>
                         <div className={classes.greeting}>
                             <div className={classes.blur__effect}>
@@ -154,6 +157,7 @@ const Login = () => {
                                         <label htmlFor='checkbox' className='form__section-label__text'>Show password</label>
                                     </div>
                                     <div className={clsx(classes.form__section, classes.form__sectionMargin)}>
+                                        <p className={classesReg.error}>{message}</p>
                                         <Button disabled={!isValid && !dirty} type='submit' onClick={handleSubmit} variant="contained" className='form__section-signin'>
                                             <span>Sign in</span>
                                             <ArrowForwardIcon className={classes.arrow} />
@@ -185,9 +189,8 @@ const Login = () => {
                         </div>
                     </Box>
                 </Box>
-            </div>
+                </div>
             )
-
     )
 
 }

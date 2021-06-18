@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import classes from  './Loader.module.scss'
 import {PacmanLoader} from "react-spinners";
 

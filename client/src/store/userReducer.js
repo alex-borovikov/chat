@@ -6,7 +6,7 @@ const SET_LOADER = 'SET_LOADER'
 const initialState = {
     auth: false,
     info: {},
-    message: '404 - Error',
+    message: '',
     loader: false
 
 };

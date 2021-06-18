@@ -16,7 +16,7 @@ const ProfileInfo = ({name, source}) => {
     const handleSignOut = () => {
         try{
             //Disable loader in login page
-            if(localStorage.getItem('userAuth')) localStorage.removeItem('userAuth')
+            localStorage.removeItem('userAuth')
             dispatch(setLoader(false))
             // END Disable loader in login page
 
