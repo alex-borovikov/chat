@@ -1,6 +1,7 @@
 const SET_MESSAGE = 'SET_MESSAGE'
 const SET_USER = 'SET_USER'
 const SET_AUTH = 'SET_AUTH'
+const SET_LOADER = 'SET_LOADER'
 
 const initialState = {
     auth: false,
@@ -29,7 +30,7 @@ const userReducer = (state = initialState, action) => {
                 auth: true,
                 info: action.payload.user,
                 message: action.payload.message,
-                loader: false
+                loader: true
             }
         default: return state;
     }
@@ -38,6 +39,7 @@ const userReducer = (state = initialState, action) => {
 export const setMessage = message => ({type: SET_MESSAGE , payload: message})
 export const setAuth = boolean => ({type: SET_AUTH , payload: boolean}) //Using only for logout
 export const setUser = payload => ({type: SET_USER, payload: payload})
+export const setLoader = boolean => ({type: SET_LOADER, payload: boolean}) // Using only for loader
 
 
 export default userReducer;
