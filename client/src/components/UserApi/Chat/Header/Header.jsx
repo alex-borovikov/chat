@@ -8,7 +8,6 @@ import {useSelector} from "react-redux";
 const Header = () => {
     const classes = useStyles();
     const profile = useSelector(state => state.user.info)
-    console.log(profile)
     return (
         <div className={classes.root}>
            <Search />

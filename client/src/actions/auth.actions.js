@@ -1,5 +1,5 @@
 import axios from "axios";
-import {setMessage, setUser} from "../store/userReducer";
+import {setLoader, setMessage, setUser} from "../store/userReducer";
 
 
 export const register = (name, surname, email, password) => {
@@ -23,6 +23,7 @@ export const register = (name, surname, email, password) => {
 export const login = (email, password) =>{
     return async (dispatch) => {
         try{
+            localStorage.setItem('userAuth', 'true')
             const response = await axios.post('http://localhost:4000/api/auth/signin', {
                 email,
                 password
@@ -67,7 +68,6 @@ export const auth = () => {
 
 export const authWithGoogle = (token, userCred) => {
     return async (dispatch) => {
-        console.log(userCred)
         try {
             const response = await axios.get('http://localhost:4000/api/auth/checkWithGoogle', {
                 headers: {
@@ -85,3 +85,4 @@ export const authWithGoogle = (token, userCred) => {
         }
     }
 }
+

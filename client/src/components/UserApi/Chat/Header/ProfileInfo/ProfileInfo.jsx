@@ -6,7 +6,7 @@ import clsx from "clsx";
 import DefaultButton from "../../../../DefaultButton/DefaultButton";
 import {auth} from "../../../../../firebase";
 import {useDispatch} from "react-redux";
-import {setAuth} from '../../../../../store/userReducer'
+import {setAuth, setLoader} from '../../../../../store/userReducer'
 
 
 const ProfileInfo = ({name, source}) => {
@@ -15,6 +15,11 @@ const ProfileInfo = ({name, source}) => {
     const dispatch = useDispatch();
     const handleSignOut = () => {
         try{
+            //Disable loader in login page
+            if(localStorage.getItem('userAuth')) localStorage.removeItem('userAuth')
+            dispatch(setLoader(false))
+            // END Disable loader in login page
+
             if(localStorage.getItem('token')) localStorage.removeItem('token')
             auth.signOut().then(() => {
                 dispatch(setAuth(false) )
