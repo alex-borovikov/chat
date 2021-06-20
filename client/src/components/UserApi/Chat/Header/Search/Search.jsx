@@ -57,7 +57,12 @@ const Search = () => {
                             </Grid>
                             <Grid item className={classes.searchResultWindow}>
                                 {resultArray.length > 0 ? resultArray.map((elem, index) => {
-                                    return <SearchItem key={index} source='/slide/e.txt' login={elem.login} name={`${elem.name} ${elem.surname}`} />
+                                    return <SearchItem
+                                                key={index}
+                                                source='/slide/e.txt'
+                                                login={elem.login}
+                                                name={`${elem.name} ${elem.surname}`}
+                                            />
                                 }) : (
                                     <p>{message}</p>
                                 )

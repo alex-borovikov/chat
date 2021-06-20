@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from "@material-ui/core";
 import {PacmanLoader} from 'react-spinners'
+import {useSelector} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -32,6 +34,7 @@ const MiddlePage = (props) => {
     const classes = useStyles()
     const [display, setDisplay] = useState('none')
     const [spinner, setSpinner] = useState('block')
+    const isAuth = useSelector(state => state.user.auth)
 
     useEffect(() => {
         const showSpinner = setTimeout(() => {
@@ -41,7 +44,9 @@ const MiddlePage = (props) => {
 
         return () => clearTimeout(showSpinner)
     }, [])
-    return (
+    return isAuth ? (
+        <Redirect to='/user' />
+    ) : (
         <div className={classes.root}>
             <div style={{display: display}} className={classes.message}>
                 <h1>{props.message}</h1>

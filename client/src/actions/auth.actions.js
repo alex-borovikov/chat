@@ -23,11 +23,11 @@ export const register = (name, surname, email, password) => {
 export const login = (email, password) =>{
     return async (dispatch) => {
         try{
-            localStorage.setItem('userAuth', true)
             const response = await axios.post('http://localhost:4000/api/auth/signin', {
                 email,
                 password
             })
+            localStorage.setItem('userAuth', true)
             localStorage.setItem('token', response.data.token)
             const data = {
                 message: response.data.message,
@@ -36,7 +36,7 @@ export const login = (email, password) =>{
             dispatch(setUser(data))
         }
         catch(err){
-            console.log(err.response?.data?.message)
+            dispatch(setMessage(err.response?.data?.message))
         }
     }
 }

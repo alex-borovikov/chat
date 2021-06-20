@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Paper, TextField} from "@material-ui/core";
 import useStyles from "./Register.styles";
 import useLoginStyles from '../Login/Login.styles'
@@ -10,8 +10,9 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import GoogleButton from "../../GoogleButton/GoogleButton";
 import {useDispatch} from "react-redux";
-import {register} from '../../../actions/auth.actions'
+import {authWithGoogle, register} from '../../../actions/auth.actions'
 import {Redirect} from 'react-router-dom'
+import {auth, provider} from "../../../firebase";
 
 const Register = () => {
     const classes = useStyles()
@@ -28,11 +29,37 @@ const Register = () => {
         password: yup.string().min(6, ERRORS.PASSWORD_TO_SHORT).required(ERRORS.PASSWORD_REQUIRED),
         confirm: yup.string().oneOf([yup.ref('password'), null], ERRORS.PASSWORD_MUST_MATCH).min(6, ERRORS.PASSWORD_TO_SHORT).required()
     })
+
+    useEffect(() => {
+        // On state changed is observe when token is ready
+        auth.onAuthStateChanged(userCred => {
+            //Always use promise to make sure you accept the token
+            //Without "then" you recieve a 'null' and auth is fail
+            // You must use 'if', if you dont want to take an error
+            if(userCred){
+                userCred.getIdToken().then(token => {
+                    //Set true to turn on the loader
+                    if(!localStorage.getItem('userAuth')) localStorage.setItem('userAuth', true)
+                    dispatch(authWithGoogle(token, userCred))
+                    setRedirect(true)
+                })
+            }
+        })
+    })
+    const handleSignIn = () => {
+        try{
+            // Open popup window
+            auth.signInWithPopup(provider)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
     return redirect ? (
         <Redirect to='/signup/middlepage' />
-    )
-     : (
-            <div className={clsx(classes_login.root, classes.root)}>
+    ) : (
+        <div className={clsx(classes_login.root, classes.root)}>
                 <Paper className={clsx(classes_login.paper, classes.paper)}>
                     <div className={classes.header}>
                         <h1>Create new account</h1>
@@ -140,7 +167,7 @@ const Register = () => {
                                     <span>Sign in</span>
                                 </Button>
                             </a>
-                            <GoogleButton variant="contained" className={classes.google}/>
+                            <GoogleButton onClick={handleSignIn} variant="contained" className={classes.google}/>
                         </div>
                     </div>
                 </Paper>

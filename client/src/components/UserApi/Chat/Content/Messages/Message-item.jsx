@@ -15,10 +15,11 @@ const Message = ({name, source, time, text, recieved}) => {
                     <Grid item className={clsx(classes.textBox, classes.textBoxLeft)}>
                         {text}
                     </Grid>
-                    <Grid container className={classes.messageDetails}>
+                    <Grid container className={classes.messageDetails} alignItems='center' justify='flex-start'>
                         <Grid item>
                             {name}
                         </Grid>
+                        <Grid item className={classes.dotSeparator} />
                         <Grid item>
                             {time}
                         </Grid>
@@ -39,7 +40,7 @@ const Message = ({name, source, time, text, recieved}) => {
                     <Grid item>
                         {name}
                     </Grid>
-                    <Grid item className={classes.dotSeparator}></Grid>
+                    <Grid item className={classes.dotSeparator} />
                     <Grid item>
                         {time}
                     </Grid>

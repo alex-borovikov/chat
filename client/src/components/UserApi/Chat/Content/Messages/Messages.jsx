@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import useStyles from "./Messages.styles";
 import {Button, Grid, IconButton, TextareaAutosize} from "@material-ui/core";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
@@ -6,11 +6,36 @@ import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import Message from "./Message-item";
 import {useSelector} from "react-redux";
 
+import { io } from "socket.io-client";
+
+let socket;
+
 
 const Messages = () => {
     const classes = useStyles()
     const [text, setText] = useState('');
+    const [message, setSt] = useState('');
     const profile = useSelector(state => state.user.info)
+
+    //Sockets
+    const url = 'http://localhost:4000/'
+
+    useEffect(() => {
+        socket = io(url)
+
+        socket.on('CONNECT:GREETING', message => {
+            setSt(message)
+        })
+        socket.emit('CLIENT:SEND_MESSAGE', {
+            user: profile,
+            text: 'Hello world!'
+        })
+
+        return () => {
+            socket.emit('disconnected')
+            socket.off()
+        }
+    }, [url])
 
     return (
         <div className={classes.root}>
@@ -29,48 +54,8 @@ const Messages = () => {
                     text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
                     recieved={false}
                 />
-                <Message
-                    name='Paul McCartney'
-                    source='/src'
-                    time='19:48'
-                    text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
-                    recieved={true}
-                />
-                <Message
-                    name='Paul McCartney'
-                    source={profile?.photoURL}
-                    time='19:48'
-                    text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
-                    recieved={false}
-                />
-                <Message
-                    name='Paul McCartney'
-                    source='/src'
-                    time='19:48'
-                    text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
-                    recieved={true}
-                />
-                <Message
-                    name='Paul McCartney'
-                    source={profile?.photoURL}
-                    time='19:48'
-                    text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
-                    recieved={false}
-                />
-                <Message
-                    name='Paul McCartney'
-                    source={profile?.photoURL}
-                    time='19:48'
-                    text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
-                    recieved={false}
-                />
-                <Message
-                    name='Paul McCartney'
-                    source={profile?.photoURL}
-                    time='19:48'
-                    text='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, officia.'
-                    recieved={false}
-                />
+                {message}
+
 
             </div>
             <div className={classes.addMessageArea}>
