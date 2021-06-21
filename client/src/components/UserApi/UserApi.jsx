@@ -29,7 +29,6 @@ const UserApi = () => {
             </div>
         </Router>
     ) : (
-        // <Loader path='/user' text='Loading..' />
         <Redirect to='/' />
     )
 };

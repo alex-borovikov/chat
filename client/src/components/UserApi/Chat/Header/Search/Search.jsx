@@ -10,7 +10,8 @@ import Fade from '@material-ui/core/Fade';
 import clsx from "clsx";
 import SearchItem from "./Search-Item";
 import CloseIcon from '@material-ui/icons/Close';
-import {searchUser} from "../../../../../actions/search.action";
+import { searchUser } from "../../../../../actions/search.action";
+import {useSelector} from "react-redux";
 
 
 const Search = () => {
@@ -19,6 +20,7 @@ const Search = () => {
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState(false);
     const [resultArray, setResult] = useState(false);
+    const id = useSelector(state => state.user.info.id)
 
     const handleOpen = () => {
         setOpen(true);
@@ -32,6 +34,12 @@ const Search = () => {
         setMessage(response.message)
         setResult([...response.result])
     }
+
+    const handlerSearch = async (author, partner) => {
+        // const response = await createDialog(author, partner)
+        // console.log(response?.message)
+    }
+
     return (
         <Box display='flex' alignItems='center'  justifyContent='space-between' className={clsx(headerClasses.borderRight,headerClasses.padding)}>
             <Modal
@@ -59,9 +67,12 @@ const Search = () => {
                                 {resultArray.length > 0 ? resultArray.map((elem, index) => {
                                     return <SearchItem
                                                 key={index}
-                                                source='/slide/e.txt'
+                                                source={elem.avatar}
                                                 login={elem.login}
                                                 name={`${elem.name} ${elem.surname}`}
+                                                onClick={() => {
+                                                    handlerSearch( id , elem._id )
+                                                }}
                                             />
                                 }) : (
                                     <p>{message}</p>

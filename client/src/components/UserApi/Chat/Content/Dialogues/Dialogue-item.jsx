@@ -1,6 +1,7 @@
-import React,{Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Box, Divider, Grid, makeStyles} from "@material-ui/core";
 import Avatar from "../../../../Avatar/Avatar";
+import axios from "axios";
 
 const useStyles = makeStyles({
     root: {
@@ -33,25 +34,38 @@ const useStyles = makeStyles({
 
 })
 
-const DialogItem = ({name, source, time, lastMessage, status}) => {
+const DialogueItem = ({dialogue, currentUser}) => {
     const classes = useStyles();
+    const [user, setUser] = useState(null)
+
+
+    useEffect(() => {
+        const friendId = dialogue.members.find(member => member !== currentUser)
+        const getUser = async () => {
+            const response = await axios.get('http://localhost:4000/api/user/get/' + friendId)
+            setUser(response.data.user)
+        }
+        getUser()
+    }, [currentUser, dialogue])
+    console.log(user)
+
     return (
         <Fragment>
             <Box display='flex' className={classes.root}>
                 <div className={classes.avatar}>
-                    <Avatar online={status} src={source} name={name} />
+                    <Avatar online={true} src={user?.avatar} name={user?.name} />
                 </div>
                 <div className={classes.header}>
                     <Grid container justify='space-between'>
                         <Grid item className={classes.name}>
-                            {name}
+                            {user?.name}
                         </Grid>
                         <Grid item className={classes.time}>
-                            {time}
+                            {'19:52'}
                         </Grid>
                     </Grid>
                     <Grid className={classes.shortText}>
-                        {lastMessage}
+                        {'last message'}
                     </Grid>
                 </div>
             </Box>
@@ -60,4 +74,4 @@ const DialogItem = ({name, source, time, lastMessage, status}) => {
     );
 };
 
-export default DialogItem;
+export default DialogueItem;

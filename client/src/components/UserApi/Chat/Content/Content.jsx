@@ -1,5 +1,5 @@
 import React from 'react';
-import Dialogs from "./Dialogs/Dialogs";
+import Dialogues from "./Dialogues/Dialogues";
 import Messages from "./Messages/Messages";
 import ChatInfo from "./ChatInformation/ChatInfo";
 import {makeStyles} from "@material-ui/core";
@@ -19,7 +19,7 @@ const Content = () => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Dialogs />
+            <Dialogues />
             <Messages />
             <ChatInfo />
         </div>
