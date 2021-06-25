@@ -5,7 +5,6 @@ class UserController{
         try{
             const {userId} = req.params;
             const user = await User.findById(userId)
-            console.log(user)
             res.status(200).json({
                 user: {
                     name: user.name,

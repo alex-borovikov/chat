@@ -9,7 +9,7 @@ class DialogueController{
                     $in: [req.params.userId]
                 }
             });
-            res.status(200).json({message: 'Success',dialogue})
+            res.status(200).json({dialogue})
         }
         catch(err){
             console.log(err)
@@ -18,13 +18,15 @@ class DialogueController{
     }
     static async create(req,res){
         try{
+
             const {author, partner} = req.body;
             //Check if dialogue is exist - return error message
             const dialogue = await Dialogue.findOne({
-                members: { $in: [author, partner] }
+                members: { $all: [partner, author] }
             })
+            console.log('err:::', dialogue)
             if(dialogue){
-                return res.status(400).json({message: 'dialogue is already exist!'})
+                return res.status(400).json({message: 'dialogue is already exist!', status: false})
             }
 
             //Create a new dialogue and save in DB
@@ -32,10 +34,10 @@ class DialogueController{
                 members: [author, partner]
             })
             await newDialogue.save();
-            res.status(200).json({message: 'dialogue was created!', dialogueInfo: newDialogue})
+            res.status(200).json({message: 'dialogue was created!', dialogueInfo: newDialogue,  status: true})
         }
         catch(err){
-            console.log(err)
+            console.log({err})
             res.status(400).json({message: "Ошибка"})
         }
     }
