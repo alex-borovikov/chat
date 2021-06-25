@@ -1,5 +1,5 @@
-import React, {useEffect, useState, Fragment} from 'react';
-import {Box, Button, Checkbox, Snackbar} from "@material-ui/core";
+import React, {useEffect, useState} from 'react';
+import {Box, Button, Checkbox} from "@material-ui/core";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import Textfield from "../../TextField/Textfield";

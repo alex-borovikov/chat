@@ -11,7 +11,9 @@ import clsx from "clsx";
 import SearchItem from "./Search-Item";
 import CloseIcon from '@material-ui/icons/Close';
 import { searchUser } from "../../../../../actions/search.action";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import axios from "axios";
+import {setReRender} from "../../../../../store/chatReducer";
 
 
 const Search = () => {
@@ -20,7 +22,9 @@ const Search = () => {
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState(false);
     const [resultArray, setResult] = useState(false);
-    const id = useSelector(state => state.user.info.id)
+    const userId = useSelector(state => state.user.info.id)
+    const reRender = useSelector(state => state.chat.rerenderDialogs)
+    const dispatch = useDispatch();
 
     const handleOpen = () => {
         setOpen(true);
@@ -35,9 +39,27 @@ const Search = () => {
         setResult([...response.result])
     }
 
-    const handlerSearch = async (author, partner) => {
-        // const response = await createDialog(author, partner)
-        // console.log(response?.message)
+    const handlerSearch = (author, partner) => {
+        try{
+            const createDialogue = async () => {
+                const response = await axios.post('http://localhost:4000/api/dialogue/create', {
+                    author,
+                    partner
+                })
+                if(!response.data.status){
+                    console.log(response.data.message)
+                    return
+                }
+                setOpen(false);
+                //Check the flag and set new state
+                dispatch(setReRender(!reRender))
+
+            }
+            createDialogue()
+        }
+        catch(err){
+            console.log({err})
+        }
     }
 
     return (
@@ -71,7 +93,7 @@ const Search = () => {
                                                 login={elem.login}
                                                 name={`${elem.name} ${elem.surname}`}
                                                 onClick={() => {
-                                                    handlerSearch( id , elem._id )
+                                                    handlerSearch( userId , elem._id )
                                                 }}
                                             />
                                 }) : (

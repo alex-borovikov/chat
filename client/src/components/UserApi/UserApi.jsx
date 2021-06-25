@@ -5,7 +5,6 @@ import Settings from "./Settings/Settings";
 import Chat from "./Chat/Chat";
 import Navbar from "./Navbar/Navbar";
 import {useSelector} from "react-redux";
-import Loader from "../Loader/Loader";
 
 const useStyles = makeStyles(theme => ({
     root: {

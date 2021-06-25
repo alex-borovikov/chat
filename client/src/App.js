@@ -11,7 +11,6 @@ import {auth} from './actions/auth.actions'
 
 const App = () => {
     const message = useSelector(state => state.user.message)
-    const isLoader = useSelector( state => state.user.loader)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(auth())
@@ -20,7 +19,6 @@ const App = () => {
         <Router>
             <Switch>
                 <Route path='/' exact component={Login} />
-                {/*{isLoader ? <Route path='/' exact component={Login} /> : <Loader />}*/}
                 <Route path='/signup' exact component={Register} />
                 <Route path='/signup/middlepage' exact render={() => <MiddlePage message={message} />}  />
                 <Route path='/user' component={UserApi} />

@@ -123,6 +123,13 @@ const useStyles = makeStyles({
         width: '3px',
         height: '3px',
         margin: '0 5px'
+    },
+    noDialogueText: {
+        padding: '10px 0',
+        fontSize: '2em',
+        opacity: '.2',
+        textAlign: 'center',
+        cursor: 'default'
     }
 })
 export default useStyles;

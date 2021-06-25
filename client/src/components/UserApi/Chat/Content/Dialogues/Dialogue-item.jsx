@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 
 })
 
-const DialogueItem = ({dialogue, currentUser}) => {
+const DialogueItem = ({dialogue, currentUser, onClick}) => {
     const classes = useStyles();
     const [user, setUser] = useState(null)
 
@@ -47,11 +47,10 @@ const DialogueItem = ({dialogue, currentUser}) => {
         }
         getUser()
     }, [currentUser, dialogue])
-    console.log(user)
 
     return (
         <Fragment>
-            <Box display='flex' className={classes.root}>
+            <Box display='flex' className={classes.root} onClick={onClick}>
                 <div className={classes.avatar}>
                     <Avatar online={true} src={user?.avatar} name={user?.name} />
                 </div>

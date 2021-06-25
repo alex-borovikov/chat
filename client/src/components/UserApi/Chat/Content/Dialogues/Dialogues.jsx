@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from "@material-ui/core";
 import DialogueItem from "./Dialogue-item";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
+import {setMessages, setOpen} from "../../../../../store/chatReducer";
 
 const useStyles = makeStyles({
     root: {
@@ -13,10 +14,13 @@ const useStyles = makeStyles({
 const Dialogues = () => {
     const classes = useStyles()
     const [dialogues, setDialogue] = useState([]);
+    const [currentDialogue, setCurrentDialogue] = useState(null);
     const userId = useSelector(state => state.user.info.id)
+    const reRender = useSelector(state => state.chat.rerenderDialogs)
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        const req = async () => {
+        const getDialogues = async () => {
             try{
                 const response = await axios.get('http://localhost:4000/api/dialogue/get/' + userId)
                 setDialogue(response.data.dialogue)
@@ -25,8 +29,21 @@ const Dialogues = () => {
                 console.log(err.response?.data?.message)
             }
         }
-        req()
-    }, [userId])
+        getDialogues()
+    }, [userId, reRender])
+
+    useEffect(() => {
+        const getMessages = async () => {
+            try{
+                const response = await axios.get('http://localhost:4000/api/message/get/' + currentDialogue?._id)
+                dispatch(setMessages(response.data.messages))
+            }
+            catch(err){
+                console.log(err)
+            }
+        }
+        getMessages()
+    })
 
     return (
         <div className={classes.root}>
@@ -35,6 +52,10 @@ const Dialogues = () => {
                             key={index}
                             dialogue={dialogue}
                             currentUser={userId}
+                            onClick={() => {
+                                setCurrentDialogue(dialogue)
+                                dispatch(setOpen(true))
+                            }}
                         />
             })}
         </div>
