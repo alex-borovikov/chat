@@ -7,14 +7,15 @@ import axios from "axios";
 
 const Message = ({name, source, userId, time, text, recieved}) => {
     const classes = useStyles();
-    const [friendInfo, setfriendInfo] = useState({});
+    const [friendInfo, setFriendInfo] = useState({});
 
     useEffect(() => {
         const getUser = async () => {
+
             if(userId){
                 try{
                     const response = await axios.get('http://localhost:4000/api/user/get/' + userId);
-                    setfriendInfo(response.data.user)
+                    setFriendInfo(response.data.user)
                 }
                 catch(err){
                     console.log(err)

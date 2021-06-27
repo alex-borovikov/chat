@@ -1,12 +1,13 @@
-import React, {useEffect, useState, Fragment} from 'react';
+import React, {useEffect, useState, Fragment, useRef} from 'react';
 import useStyles from "./Messages.styles";
 import {Button, Grid, IconButton, TextareaAutosize} from "@material-ui/core";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
 import Message from "./Message-item";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import { io } from "socket.io-client";
+import {updateMessages} from "../../../../../store/chatReducer";
 
 let socket;
 
@@ -19,26 +20,43 @@ const Messages = () => {
     const profile = useSelector(state => state.user.info)
     const messagesArray = useSelector(state => state.chat.messages)
     const userId = useSelector(state => state.user.info.id)
+    const members = useSelector(state => state.chat.participants)
+    const dialogueId = useSelector(state => state.chat.currentDialog)
+    const friendId = members.find(elem => elem !== userId)
+    const dispatch = useDispatch();
 
-    //Sockets
-    const url = 'http://localhost:4000/'
 
+    //the socket variable will be lost after rerender the component, so we need to preserve socket into useRef hook
+    let socket = useRef();
+
+    //Set socket once. Instead the socket will be connected many times
     useEffect(() => {
-        socket = io(url)
+        socket.current = io('ws://localhost:4000/')
 
-        socket.on('CONNECT:GREETING', message => {
-            setMessages(message)
-        })
-        socket.emit('CLIENT:SEND_MESSAGE', {
-            user: profile,
-            text: 'Hello world!'
-        })
+        socket.current.emit('addUser', profile.id)
 
-        return () => {
-            socket.emit('disconnected')
-            socket.off()
-        }
-    }, [url])
+        socket.current.on('getUsers', users => console.log('members:::', users))
+
+        socket.current.on('getMessage', data => {
+            let message = {
+                author: data.from,
+                text: data.message
+            }
+            dispatch(updateMessages(message))
+
+        })
+    }, [])
+
+
+
+    const handleSubmit = () => {
+        socket.current.emit('sendMessage', {
+            senderId: userId,
+            receiver: friendId,
+            text,
+            dialogueId
+        })
+    }
 
     return (
         <div className={classes.root}>
@@ -91,7 +109,7 @@ const Messages = () => {
                                 </div>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" color="primary" className={classes.button}>
+                                <Button variant="contained" color="primary" className={classes.button} onClick={handleSubmit}>
                                     Send
                                 </Button>
                             </Grid>

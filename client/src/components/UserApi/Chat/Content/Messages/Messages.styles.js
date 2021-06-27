@@ -21,8 +21,9 @@ const useStyles = makeStyles({
         overflowY: 'scroll',
         maxHeight: 'calc(100vh - 262px)',
         height: '500px',
+        scrollbarWidth: 'none',
         '&::-webkit-scrollbar': {
-            display: 'none'
+            display: 'none',
         },
     },
     addMessageArea: {

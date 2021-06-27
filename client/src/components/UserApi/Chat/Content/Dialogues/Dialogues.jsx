@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core";
 import DialogueItem from "./Dialogue-item";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-import {setMessages, setOpen} from "../../../../../store/chatReducer";
+import {setMessages, setOpen, setParticipants, setCurrentDialogId} from "../../../../../store/chatReducer";
 
 const useStyles = makeStyles({
     root: {
@@ -24,6 +24,7 @@ const Dialogues = () => {
             try{
                 const response = await axios.get('http://localhost:4000/api/dialogue/get/' + userId)
                 setDialogue(response.data.dialogue)
+
             }
             catch(err){
                 console.log(err.response?.data?.message)
@@ -37,6 +38,9 @@ const Dialogues = () => {
             try{
                 const response = await axios.get('http://localhost:4000/api/message/get/' + currentDialogue?._id)
                 dispatch(setMessages(response.data.messages))
+                if(currentDialogue?.members) {
+                    dispatch(setParticipants(currentDialogue.members))
+                }
             }
             catch(err){
                 console.log(err)
@@ -55,6 +59,7 @@ const Dialogues = () => {
                             onClick={() => {
                                 setCurrentDialogue(dialogue)
                                 dispatch(setOpen(true))
+                                dispatch(setCurrentDialogId(dialogue._id))
                             }}
                         />
             })}
