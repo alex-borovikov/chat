@@ -18,6 +18,9 @@ const PORT = process.env.PORT || 5000
 
 app.disable('x-powered-by')
 
+//Models
+const Message = require('./models/Message.model')
+
 const authRouter = require('./routes/auth.route')
 const dialogueRouter = require('./routes/dialogues.route')
 const messageRouter = require('./routes/message.route')
@@ -35,9 +38,51 @@ app.use('/api/user/search', searchRouter)
 //Only for API SEARCH
 app.use('/api/user/get', userRouter)
 
+let users = [];
 
+const addUsers = (userId, socketId) => {
+    !users.some((user) => user.userId === userId) &&
+     users.push({userId, socketId})
+}
+const removeUser = socketId => users = users.filter( user => user.socketId !== socketId )
+const getUser = id => users.find( user => user.userId === id)
 
 const server = () => {
+
+    io.on('connection', socket => {
+        // We add users to array when connected
+        socket.on('addUser', userId => {
+            addUsers(userId, socket.id)
+            io.emit('getUsers', users)
+        })
+        //Receive info from client and send them the message
+        socket.on('sendMessage', async ({senderId, receiver, text, dialogueId}) => {
+            //Find receiver by user id and getting user socket id
+            const receiverSocketId = getUser(receiver).socketId
+            const senderSocketId = getUser(senderId).socketId
+            const message = new Message({dialogueId, author: senderId, text})
+            await message.save();
+            const data = {
+                message: text,
+                from: senderId,
+                createdAt: Date.now(),
+                updatedAt: Date.now(),
+                read: false,
+                files: [],
+                dialogueId: 0,
+
+            }
+            // Send message to all user from chat
+            io.to( receiverSocketId ).emit('getMessage', data)
+            io.to( senderSocketId ).emit('getMessage', data)
+        })
+
+        socket.on('disconnect', () => {
+            removeUser(socket.id)
+            io.emit('getUsers', users)
+        })
+    })
+
     try{
         mongoose.connect(
             `mongodb+srv://alex:${process.env.DB_PASSWORD}@cluster0.rvw8v.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
@@ -46,21 +91,6 @@ const server = () => {
                 useUnifiedTopology: true
             }
         )
-
-        io.on('connection', socket => {
-            // console.log('Client was enter to chat')
-
-            socket.emit('CONNECT:GREETING', 'Test socket command!')
-
-            socket.on('CLIENT:SEND_MESSAGE', message => {
-                // console.log(message)
-            })
-        })
-
-
-
-
-
 
         httpServer.listen(PORT, () =>{
             console.log(('Server has been started on port: ' + PORT).blue)

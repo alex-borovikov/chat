@@ -24,7 +24,6 @@ class DialogueController{
             const dialogue = await Dialogue.findOne({
                 members: { $all: [partner, author] }
             })
-            console.log('err:::', dialogue)
             if(dialogue){
                 return res.status(400).json({message: 'dialogue is already exist!', status: false})
             }
