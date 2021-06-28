@@ -1,4 +1,4 @@
-const Dialogue = require('../models/dialogue.model')
+const Dialogue = require('../models/Dialogue.model')
 
 
 class DialogueController{

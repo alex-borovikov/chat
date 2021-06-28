@@ -20,6 +20,7 @@ app.disable('x-powered-by')
 
 //Models
 const Message = require('./models/Message.model')
+const Dialogue = require('./models/Dialogue.model')
 
 const authRouter = require('./routes/auth.route')
 const dialogueRouter = require('./routes/dialogues.route')
@@ -58,23 +59,25 @@ const server = () => {
         //Receive info from client and send them the message
         socket.on('sendMessage', async ({senderId, receiver, text, dialogueId}) => {
             //Find receiver by user id and getting user socket id
-            const receiverSocketId = getUser(receiver).socketId
-            const senderSocketId = getUser(senderId).socketId
+            const receiverSocketId = getUser(receiver)?.socketId
+            const senderSocketId = getUser(senderId)?.socketId
             const message = new Message({dialogueId, author: senderId, text})
             await message.save();
-            const data = {
-                message: text,
-                from: senderId,
-                createdAt: Date.now(),
-                updatedAt: Date.now(),
-                read: false,
-                files: [],
-                dialogueId: 0,
 
-            }
+            //Set new last message for dialogue
+            const updateLastMessageInDialogue = await Dialogue.updateOne(
+                {
+                _id: dialogueId
+                },
+                {
+                    $set: {
+                        lastMessage: text
+                    }
+            })
+
             // Send message to all user from chat
-            io.to( receiverSocketId ).emit('getMessage', data)
-            io.to( senderSocketId ).emit('getMessage', data)
+            io.to( receiverSocketId ).emit('getMessage', message)
+            io.to( senderSocketId ).emit('getMessage', message)
         })
 
         socket.on('disconnect', () => {

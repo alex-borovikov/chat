@@ -96,14 +96,12 @@ class AuthController{
                 })
                 await createUser.save()
             }
-            const relevantUser = await User.findOne({email: userInfo.email});
             const data = {
                 message: 'Success!',
                 user: {
-                    displayName: user?.name + user?.surname || relevantUser.name + relevantUser.surname,
-                    id: user?._id || relevantUser._id,
-                    dialogs: user?.dialogs || relevantUser.dialogs,
-                    avatar: user?.avatar || relevantUser.avatar
+                    displayName: user?.name + user?.surname ,
+                    id: user?._id ,
+                    avatar: user?.avatar
                 }
             }
             res.status(200).json(data)
