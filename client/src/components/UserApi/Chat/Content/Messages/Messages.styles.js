@@ -92,13 +92,18 @@ const useStyles = makeStyles({
         background: '#DDE5EE',
         padding: '10px',
         borderRadius: '5px',
+        width: 'fit-content',
+        textAlign: 'justify'
+
 
     },
     textBoxLeft: {
-        borderTopLeftRadius: '0px'
+        borderTopLeftRadius: '0px',
+        marginRight: 'auto'
     },
     textBoxRight: {
-        borderTopRightRadius: '0px'
+        borderTopRightRadius: '0px',
+        marginLeft: 'auto'
     },
     gridParent: {
         flexWrap: 'nowrap',

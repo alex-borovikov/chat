@@ -8,6 +8,7 @@ import {useSelector} from "react-redux";
 const Header = () => {
     const classes = useStyles();
     const profile = useSelector(state => state.user.info)
+    const defineAvatar = profile.avatar || null;
     return (
         <div className={classes.root}>
            <Search />

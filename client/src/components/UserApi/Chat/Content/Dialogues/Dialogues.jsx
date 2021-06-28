@@ -53,6 +53,7 @@ const Dialogues = () => {
         <div className={classes.root}>
             {dialogues.map((dialogue, index) => {
                 return <DialogueItem
+                            lastMessage={dialogue.lastMessage}
                             key={index}
                             dialogue={dialogue}
                             currentUser={userId}

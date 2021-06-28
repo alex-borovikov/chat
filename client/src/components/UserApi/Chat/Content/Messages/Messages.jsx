@@ -38,12 +38,7 @@ const Messages = () => {
         socket.current.on('getUsers', users => console.log('members:::', users))
 
         socket.current.on('getMessage', data => {
-            let message = {
-                author: data.from,
-                text: data.message
-            }
-            dispatch(updateMessages(message))
-
+            dispatch(updateMessages(data))
         })
     }, [])
 
@@ -56,6 +51,7 @@ const Messages = () => {
             text,
             dialogueId
         })
+        setText('')
     }
 
     return (
@@ -69,6 +65,7 @@ const Messages = () => {
                     <div className={classes.messages}>
                         { messagesArray.length > 0 ? (
                             messagesArray.map((m, index) => {
+                                console.log(m.author)
                                 return userId !== m.author ? (
                                     <Message
                                         userId={m.author}
@@ -79,6 +76,7 @@ const Messages = () => {
                                     />
                                 ) : (
                                     <Message
+                                        userId={m.author}
                                         name={profile.displayName}
                                         source={profile?.photoURL}
                                         time={m.createdAt}

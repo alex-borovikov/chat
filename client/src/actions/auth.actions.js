@@ -1,5 +1,5 @@
 import axios from "axios";
-import {setLoader, setMessage, setUser} from "../store/userReducer";
+import {setMessage, setUser} from "../store/userReducer";
 
 
 export const register = (name, surname, email, password) => {
@@ -73,11 +73,16 @@ export const authWithGoogle = (token, userCred) => {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
-                params: {userInfo: userCred}
+                params: { userInfo: userCred }
             })
+            console.log(userCred)
             const data = {
                 message: response.data.message,
-                user: response.data.user,
+                user: {
+                    displayName: response.data.user.displayName ,
+                    id: response.data.user.id ,
+                    avatar: userCred.photoURL
+                },
             }
             dispatch(setUser(data))
         } catch (err) {

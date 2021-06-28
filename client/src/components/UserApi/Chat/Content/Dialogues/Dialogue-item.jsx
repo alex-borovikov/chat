@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 
 })
 
-const DialogueItem = ({dialogue, currentUser, onClick}) => {
+const DialogueItem = ({dialogue, currentUser, onClick, lastMessage}) => {
     const classes = useStyles();
     const [user, setUser] = useState(null)
 
@@ -64,7 +64,7 @@ const DialogueItem = ({dialogue, currentUser, onClick}) => {
                         </Grid>
                     </Grid>
                     <Grid className={classes.shortText}>
-                        {'last message'}
+                        {lastMessage}
                     </Grid>
                 </div>
             </Box>

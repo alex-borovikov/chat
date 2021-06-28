@@ -7,15 +7,14 @@ import axios from "axios";
 
 const Message = ({name, source, userId, time, text, recieved}) => {
     const classes = useStyles();
-    const [friendInfo, setFriendInfo] = useState({});
+    const [userInfo, setuserInfo] = useState({});
 
     useEffect(() => {
         const getUser = async () => {
-
             if(userId){
                 try{
                     const response = await axios.get('http://localhost:4000/api/user/get/' + userId);
-                    setFriendInfo(response.data.user)
+                    setuserInfo(response.data.user)
                 }
                 catch(err){
                     console.log(err)
@@ -28,7 +27,7 @@ const Message = ({name, source, userId, time, text, recieved}) => {
     return recieved ? (
         <Grid container className={classes.gridParent} >
             <Grid item className={classes.avatarWrapper}>
-                <Avatar src={friendInfo.avatar}/>
+                <Avatar src={userInfo.avatar}/>
             </Grid>
             <Grid className={classes.leftCloud}>
                 <Grid item className={clsx(classes.textBox, classes.textBoxLeft)}>
@@ -36,7 +35,7 @@ const Message = ({name, source, userId, time, text, recieved}) => {
                 </Grid>
                 <Grid container className={classes.messageDetails} alignItems='center' justify='flex-start'>
                     <Grid item>
-                        {friendInfo.name}
+                        {userInfo.name}
                     </Grid>
                     <Grid item className={classes.dotSeparator} />
                     <Grid item>
@@ -48,11 +47,13 @@ const Message = ({name, source, userId, time, text, recieved}) => {
     ) : (
          <Grid container className={clsx(classes.gridParent,classes.reverse)} >
             <Grid item className={classes.avatarWrapper}>
-                <Avatar src={source} />
+                <Avatar src={userInfo.avatar} />
             </Grid>
             <Grid className={classes.rightCloud}>
-                <Grid item className={clsx(classes.textBox, classes.textBoxRight)}>
-                    {text}
+                <Grid item >
+                    <div className={clsx(classes.textBox, classes.textBoxRight)}>
+                        {text}
+                    </div>
                 </Grid>
                 <Grid container className={classes.messageDetails} alignItems='center' justify='flex-end'>
                     <Grid item>
