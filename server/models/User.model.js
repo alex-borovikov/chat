@@ -9,7 +9,7 @@ const UserSchema = mongoose.Schema({
     avatar: {type: String, default: null},
     last_seen: String,
     dialogs: [{type: mongoose.Types.ObjectId, ref: 'Dialog'}],
-    status: String
+    status: Boolean
 }, {
     timestamps: true
 })

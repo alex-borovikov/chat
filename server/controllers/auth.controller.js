@@ -42,6 +42,15 @@ class AuthController{
              if (!comparePassword){
                  return res.status(400).json({message: 'Wrong password!'})
              }
+             //Set user online status
+             await User.updateOne(
+                 {_id: user._id},
+                 {
+                     $set: {
+                         status: true
+                     }
+                 }
+             )
 
              const token = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: '24h'})
              res.json({
@@ -96,6 +105,15 @@ class AuthController{
                 })
                 await createUser.save()
             }
+            //Set user online status
+            await User.updateOne(
+                {_id: user._id},
+                {
+                    $set: {
+                        status: true
+                    }
+                }
+            )
             const data = {
                 message: 'Success!',
                 user: {
@@ -108,6 +126,28 @@ class AuthController{
         }
         catch(err){
             console.log(err)
+        }
+    }
+    static async setStatus(req,res){
+        try{
+            const { id } = req.body;
+            const update = await User.updateOne(
+                {_id: id},
+                {
+                    $set: {
+                        status: false
+                    }
+                }
+            )
+            console.log(update)
+            if(!update.ok){
+                return res.status(400).json({message: 'Request error'})
+            }
+            res.json({message: 'Successful update!'})
+        }
+        catch(err){
+            console.log(err)
+            res.status(400).json({message: "Ошибка"})
         }
     }
 

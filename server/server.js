@@ -21,6 +21,7 @@ app.disable('x-powered-by')
 //Models
 const Message = require('./models/Message.model')
 const Dialogue = require('./models/Dialogue.model')
+const User = require('./models/User.model')
 
 const authRouter = require('./routes/auth.route')
 const dialogueRouter = require('./routes/dialogues.route')
@@ -50,7 +51,7 @@ const getUser = id => users.find( user => user.userId === id)
 
 const server = () => {
 
-    io.on('connection', socket => {
+    io.on('connection',  socket => {
         // We add users to array when connected
         socket.on('addUser', userId => {
             addUsers(userId, socket.id)
@@ -67,20 +68,21 @@ const server = () => {
             //Set new last message for dialogue
             const updateLastMessageInDialogue = await Dialogue.updateOne(
                 {
-                _id: dialogueId
+                    _id: dialogueId
                 },
                 {
                     $set: {
                         lastMessage: text
                     }
-            })
+                }
+            )
 
             // Send message to all user from chat
             io.to( receiverSocketId ).emit('getMessage', message)
             io.to( senderSocketId ).emit('getMessage', message)
         })
 
-        socket.on('disconnect', () => {
+        socket.on('disconnect', async () => {
             removeUser(socket.id)
             io.emit('getUsers', users)
         })
