@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Avatar, Grid} from "@material-ui/core";
 import useStyles from "./Messages.styles";
 import clsx from "clsx";
@@ -8,6 +8,12 @@ import axios from "axios";
 const Message = ({name, source, userId, time, text, recieved}) => {
     const classes = useStyles();
     const [userInfo, setuserInfo] = useState({});
+    const scrollRef = useRef();
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'end'})
+    }, [])
+
 
     useEffect(() => {
         const getUser = async () => {
@@ -25,7 +31,7 @@ const Message = ({name, source, userId, time, text, recieved}) => {
     }, [userId])
 
     return recieved ? (
-        <Grid container className={classes.gridParent} >
+        <Grid container className={classes.gridParent} ref={scrollRef}>
             <Grid item className={classes.avatarWrapper}>
                 <Avatar src={userInfo.avatar}/>
             </Grid>
@@ -45,7 +51,7 @@ const Message = ({name, source, userId, time, text, recieved}) => {
             </Grid>
         </Grid>
     ) : (
-         <Grid container className={clsx(classes.gridParent,classes.reverse)} >
+         <Grid container className={clsx(classes.gridParent,classes.reverse)} ref={scrollRef}>
             <Grid item className={classes.avatarWrapper}>
                 <Avatar src={userInfo.avatar} />
             </Grid>

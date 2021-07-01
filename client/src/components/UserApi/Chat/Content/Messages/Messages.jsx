@@ -15,7 +15,6 @@ let socket;
 const Messages = () => {
     const classes = useStyles()
     const [text, setText] = useState('');
-    const [message, setMessages] = useState('');
     const isDialogueOpen = useSelector(state => state.chat.isDialogueOpen)
     const profile = useSelector(state => state.user.info)
     const messagesArray = useSelector(state => state.chat.messages)
@@ -24,6 +23,7 @@ const Messages = () => {
     const dialogueId = useSelector(state => state.chat.currentDialog)
     const friendId = members.find(elem => elem !== userId)
     const dispatch = useDispatch();
+
 
 
     //the socket variable will be lost after rerender the component, so we need to preserve socket into useRef hook
@@ -45,6 +45,8 @@ const Messages = () => {
 
 
 
+
+
     const handleSubmit = () => {
         socket.current.emit('sendMessage', {
             senderId: userId,
@@ -63,7 +65,7 @@ const Messages = () => {
                 </div>
             ) : (
                 <Fragment>
-                    <div className={classes.messages}>
+                    <div className={classes.messages} >
                         { messagesArray.length > 0 ? (
                             messagesArray.map((m, index) => {
                                 return userId !== m.author ? (
