@@ -75,7 +75,6 @@ export const authWithGoogle = (token, userCred) => {
                 },
                 params: { userInfo: userCred }
             })
-            console.log(userCred)
             const data = {
                 message: response.data.message,
                 user: {

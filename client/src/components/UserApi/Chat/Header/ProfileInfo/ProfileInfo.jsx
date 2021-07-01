@@ -5,14 +5,16 @@ import useStyles from "./ProfileInfo.styles";
 import clsx from "clsx";
 import DefaultButton from "../../../../DefaultButton/DefaultButton";
 import {auth} from "../../../../../firebase";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setAuth, setLoader} from '../../../../../store/userReducer'
+import axios from "axios";
 
 
 const ProfileInfo = ({name, source}) => {
     const headerClasses = headerStyles();
     const classes = useStyles();
     const dispatch = useDispatch();
+    const user = useSelector(state => state.user.info)
     const handleSignOut = () => {
         try{
             //Disable loader in login page
@@ -24,6 +26,13 @@ const ProfileInfo = ({name, source}) => {
             auth.signOut().then(() => {
                 dispatch(setAuth(false) )
             })
+
+            const setUserStatus = async () => {
+                await axios.post('http://localhost:4000/api/auth/set/status', {
+                    id: user.id
+                })
+            }
+            setUserStatus();
         }
         catch(err){
             console.log(err)

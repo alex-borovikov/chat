@@ -52,7 +52,7 @@ const DialogueItem = ({dialogue, currentUser, onClick, lastMessage}) => {
         <Fragment>
             <Box display='flex' className={classes.root} onClick={onClick}>
                 <div className={classes.avatar}>
-                    <Avatar online={true} src={user?.avatar} name={user?.name} />
+                    <Avatar online={user?.status} src={user?.avatar} name={user?.name} />
                 </div>
                 <div className={classes.header}>
                     <Grid container justify='space-between'>

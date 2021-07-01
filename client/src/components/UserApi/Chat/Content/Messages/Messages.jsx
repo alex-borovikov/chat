@@ -32,10 +32,11 @@ const Messages = () => {
     //Set socket once. Instead the socket will be connected many times
     useEffect(() => {
         socket.current = io('ws://localhost:4000/')
+        socket.current.emit('connect:user', profile.id)
 
         socket.current.emit('addUser', profile.id)
 
-        socket.current.on('getUsers', users => console.log('members:::', users))
+        // socket.current.on('getUsers', users => console.log('members:::', users))
 
         socket.current.on('getMessage', data => {
             dispatch(updateMessages(data))
@@ -65,7 +66,6 @@ const Messages = () => {
                     <div className={classes.messages}>
                         { messagesArray.length > 0 ? (
                             messagesArray.map((m, index) => {
-                                console.log(m.author)
                                 return userId !== m.author ? (
                                     <Message
                                         userId={m.author}
