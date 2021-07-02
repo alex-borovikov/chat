@@ -55,7 +55,6 @@ const server = () => {
         // We add users to array when connected
         socket.on('addUser', userId => {
             addUsers(userId, socket.id)
-            io.emit('getUsers', users)
         })
         //Receive info from client and send them the message
         socket.on('sendMessage', async ({senderId, receiver, text, dialogueId}) => {
@@ -65,14 +64,15 @@ const server = () => {
             const message = new Message({dialogueId, author: senderId, text})
             await message.save();
 
-            //Set new last message for dialogue
+            //Set new last message for the dialogue
             const updateLastMessageInDialogue = await Dialogue.updateOne(
                 {
                     _id: dialogueId
                 },
                 {
                     $set: {
-                        lastMessage: text
+                        lastMessage: text,
+                        lastMessageTime: Date.now()
                     }
                 }
             )
