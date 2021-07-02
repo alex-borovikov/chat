@@ -57,6 +57,7 @@ const Dialogues = () => {
                             key={index}
                             dialogue={dialogue}
                             currentUser={userId}
+                            time={dialogue.lastMessageTime}
                             onClick={() => {
                                 setCurrentDialogue(dialogue)
                                 dispatch(setOpen(true))

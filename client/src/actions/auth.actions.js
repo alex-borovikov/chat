@@ -62,6 +62,7 @@ export const auth = () => {
         catch(err){
             console.log(err.response?.data?.message)
             localStorage.removeItem('token')
+            localStorage.removeItem('userAuth')
         }
     }
 }

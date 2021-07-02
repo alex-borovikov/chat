@@ -136,6 +136,21 @@ const useStyles = makeStyles({
         opacity: '.2',
         textAlign: 'center',
         cursor: 'default'
+    },
+    hiddenInput: {
+        display: 'none'
+    },
+    label: {
+        display: 'inline-block',
+        width: '1em',
+        height: '1em',
+        cursor: 'pointer'
+    },
+    emoji: {
+        transform: 'translateY(5px)'
+    },
+    progressHeight: {
+        height: '100%'
     }
 })
 export default useStyles;

@@ -11,6 +11,10 @@ const initialState = {
     rerenderDialogs: false,
     participants: [],
     currentDialog: null,
+    lastMessage: '',
+    upload: {
+        loading: false
+    }
 }
 
 const chatReducer = (state = initialState, action) => {
@@ -51,6 +55,8 @@ const chatReducer = (state = initialState, action) => {
                 currentDialog: action.payload
             }
         }
+
+
         default: return state;
     }
 }

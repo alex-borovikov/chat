@@ -2,6 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {Box, Divider, Grid, makeStyles} from "@material-ui/core";
 import Avatar from "../../../../Avatar/Avatar";
 import axios from "axios";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles({
     root: {
@@ -34,9 +35,11 @@ const useStyles = makeStyles({
 
 })
 
-const DialogueItem = ({dialogue, currentUser, onClick, lastMessage}) => {
+const DialogueItem = ({dialogue, currentUser, onClick, lastMessage, time}) => {
     const classes = useStyles();
     const [user, setUser] = useState(null)
+    const chatState = useSelector(state => state.chat)
+    const date = new Date(time)
 
 
     useEffect(() => {
@@ -60,11 +63,13 @@ const DialogueItem = ({dialogue, currentUser, onClick, lastMessage}) => {
                             {user?.name}
                         </Grid>
                         <Grid item className={classes.time}>
-                            {'19:52'}
+                            {date.getHours() + ':' + date.getMinutes()}
                         </Grid>
                     </Grid>
-                    <Grid className={classes.shortText}>
-                        {lastMessage}
+                    <Grid container justify={"space-between"}>
+                        <Grid item className={classes.shortText}>
+                            {lastMessage}
+                        </Grid>
                     </Grid>
                 </div>
             </Box>

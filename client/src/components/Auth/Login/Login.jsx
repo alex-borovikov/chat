@@ -49,6 +49,7 @@ const Login = () => {
             }
         })
     })
+
     const handleSignIn = () => {
         try{
             // Open popup window
