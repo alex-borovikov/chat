@@ -2,6 +2,7 @@ require('dotenv').config()
 const colors = require('colors')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
 
 const express = require('express')
 const app = express();
@@ -28,9 +29,13 @@ const dialogueRouter = require('./routes/dialogues.route')
 const messageRouter = require('./routes/message.route')
 const searchRouter = require('./routes/search.route')
 const userRouter = require('./routes/user.route')
+const fileRouter = require('./routes/file.router')
+
+
 
 
 app.use(cors())
+app.use(fileUpload())
 app.use(express.json())
 app.use('/api/auth', authRouter)
 app.use('/api/dialogue', dialogueRouter)
@@ -39,6 +44,8 @@ app.use('/api/message', messageRouter)
 app.use('/api/user/search', searchRouter)
 //Only for API SEARCH
 app.use('/api/user/get', userRouter)
+//File loading
+app.use('/api/user/file', fileRouter)
 
 let users = [];
 
