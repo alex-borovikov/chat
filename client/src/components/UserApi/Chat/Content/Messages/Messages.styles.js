@@ -30,6 +30,7 @@ const useStyles = makeStyles({
         background: '#fff',
         borderRadius: '7px',
         width: '100%',
+        position: 'relative'
     } ,
     textarea: {
         width: '100%',
@@ -147,10 +148,58 @@ const useStyles = makeStyles({
         cursor: 'pointer'
     },
     emoji: {
-        transform: 'translateY(5px)'
+        transform: 'translateY(1px)'
     },
     progressHeight: {
         height: '100%'
+    },
+    name: {
+        color: 'blue',
+        marginRight: '5px',
+        fontSize: '.85em'
+    },
+    metrics: {
+        display: 'inline-block',
+        marginLeft: '5px',
+
+    },
+    size: {
+        fontSize: '.85em',
+        color: '#b8b7b7'
+    },
+    file: {
+        alignItems: 'center',
+        '&:hover': {
+            cursor: 'pointer'
+        }
+    },
+    fileWrapper: {
+        marginLeft: '5px',
+    },
+    deleteIconWrapper: {
+        marginLeft: '5px'
+    },
+    deleteIcon: {
+        fontSize: '1.2em',
+        transition: 'color .3s',
+        '&:hover': {
+            color: 'red'
+        }
+    },
+    loading: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'rgba(0,0,0, .6)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: '1'
+    },
+    typographyValue: {
+        color: '#fff'
     }
 })
 export default useStyles;

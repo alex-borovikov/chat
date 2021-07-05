@@ -38,7 +38,6 @@ const useStyles = makeStyles({
 const DialogueItem = ({dialogue, currentUser, onClick, lastMessage, time}) => {
     const classes = useStyles();
     const [user, setUser] = useState(null)
-    const chatState = useSelector(state => state.chat)
     const date = new Date(time)
 
 

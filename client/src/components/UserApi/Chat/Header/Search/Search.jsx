@@ -10,7 +10,7 @@ import Fade from '@material-ui/core/Fade';
 import clsx from "clsx";
 import SearchItem from "./Search-Item";
 import CloseIcon from '@material-ui/icons/Close';
-import { searchUser } from "../../../../../actions/search.action";
+import { searchUser } from "../../../../../actions/search.actions";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {setReRender} from "../../../../../store/chatReducer";

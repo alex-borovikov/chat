@@ -5,7 +5,7 @@ import clsx from "clsx";
 import {format} from 'timeago.js'
 import axios from "axios";
 
-const Message = ({name, source, userId, time, text, recieved}) => {
+const Message = ({name, source, userId, time, text, recieved, files}) => {
     const classes = useStyles();
     const [userInfo, setuserInfo] = useState({});
     const scrollRef = useRef();
@@ -29,6 +29,7 @@ const Message = ({name, source, userId, time, text, recieved}) => {
         }
         getUser()
     }, [userId])
+    console.log(files)
 
     return recieved ? (
         <Grid container className={classes.gridParent} ref={scrollRef}>
@@ -37,7 +38,20 @@ const Message = ({name, source, userId, time, text, recieved}) => {
             </Grid>
             <Grid className={classes.leftCloud}>
                 <Grid item className={clsx(classes.textBox, classes.textBoxLeft)}>
-                    {text}
+                    <Grid container>
+                        <Grid item>
+                            {text}
+                        </Grid>
+                        console.log(files)
+                        <Grid item style={{display: files.length > 0 ? 'block' : 'none'}}>
+                            <Grid container>
+                                <Grid item className={classes.name}>{files[0].name}</Grid>
+                                <Grid item className={classes.size}>
+                                    (<span>{(files[0].size / 1000000).toFixed(1)}</span><span className={classes.metrics}>mb</span>)
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Grid container className={classes.messageDetails} alignItems='center' justify='flex-start'>
                     <Grid item>
